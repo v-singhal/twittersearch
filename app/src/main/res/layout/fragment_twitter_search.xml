@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/default_toolbar_height">
+
+        <com.astuetz.PagerSlidingTabStrip
+            android:id="@+id/twitterSearchViewPagerTab"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bloated_view_pager_tab_height"
+            android:background="@color/otherCta"/>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/twitterSearchViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/twitterSearchViewPagerTab">
+
+        </android.support.v4.view.ViewPager>
+    </RelativeLayout>
+
+</LinearLayout>

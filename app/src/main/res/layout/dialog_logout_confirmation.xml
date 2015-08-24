@@ -1,0 +1,84 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@android:color/white"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/dialogHeaderLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@android:color/white"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/txtDialogHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="Logout confirmation"
+            android:textColor="@color/otherCta"
+            android:textSize="17sp"/>
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/separatorDark"/>
+
+    <LinearLayout
+        android:id="@+id/dialogBodyLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:text="Are you sure you want to logout?"
+            android:textColor="@color/otherCta"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/btnLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/default_button_height"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="10dp"
+        android:weightSum="100">
+
+        <Button
+            android:id="@+id/btnDismissDialog"
+            fontPath="@string/custom_font_path_bold"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="50"
+            android:background="@color/otherCta"
+            android:text="No, stay logged in"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"/>
+
+        <Button
+            android:id="@+id/btnLogMeOut"
+            fontPath="@string/custom_font_path_bold"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="50"
+            android:background="@color/menuCta"
+            android:text="Yes, log me out"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+</LinearLayout>

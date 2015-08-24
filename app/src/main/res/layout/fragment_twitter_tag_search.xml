@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/tagToBeSearchedLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:gravity="bottom"
+        android:orientation="vertical"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="7dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionSearch"
+                android:text="#"
+                android:textColor="@color/otherCta"/>
+
+            <EditText
+                android:id="@+id/edtTagToBeSearched"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:hint="#Tag"
+                android:imeOptions="actionSearch"
+                android:singleLine="true"
+                android:textColor="@color/otherCta"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/separatorDark"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/twitterSearchResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tagToBeSearchedLayout"
+        android:gravity="center_horizontal">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/tagsearchResultRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:scrollbars="none"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

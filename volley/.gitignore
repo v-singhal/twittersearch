@@ -1,0 +1,7 @@
+tests/*
+src
+bin
+gen
+.gradle
+build
+.settings

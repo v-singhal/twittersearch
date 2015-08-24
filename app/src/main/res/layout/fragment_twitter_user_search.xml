@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/userToBeSearchedLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:gravity="bottom"
+        android:orientation="vertical"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="7dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionSearch"
+                android:text="\@"
+                android:textColor="@color/otherCta"/>
+
+            <EditText
+                android:id="@+id/edtUserToBeSearched"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:hint="#Tag"
+                android:imeOptions="actionSearch"
+                android:singleLine="true"
+                android:textColor="@color/otherCta"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/separatorDark"/>
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/userDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/userToBeSearchedLayout">
+
+        <com.vbstdio.twittersearch.network.AnimatedNetworkImageView
+            android:id="@+id/imgUserProfileImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/backgorund_diamond_pattern"
+            android:scaleType="centerCrop"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.6"
+            android:background="@color/otherCta"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:weightSum="100">
+
+                <TextView
+                    fontPath="@string/custom_font_path_bold"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="35"
+                    android:text="Name"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/txtUserName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="65"
+                    android:hint="-"
+                    android:paddingLeft="5dp"
+                    android:textColor="@color/white"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:weightSum="100">
+
+                <TextView
+                    fontPath="@string/custom_font_path_bold"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="35"
+                    android:text="Screen Name"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/txtUserScreenName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="65"
+                    android:hint="-"
+                    android:paddingLeft="5dp"
+                    android:textColor="@color/white"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:weightSum="100">
+
+                <TextView
+                    fontPath="@string/custom_font_path_bold"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="35"
+                    android:text="Location"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/txtUserLocation"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="65"
+                    android:hint="-"
+                    android:paddingLeft="5dp"
+                    android:textColor="@color/white"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:weightSum="100">
+
+                <TextView
+                    fontPath="@string/custom_font_path_bold"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="35"
+                    android:text="Following"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/txtUserFriendCount"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="65"
+                    android:hint="-"
+                    android:paddingLeft="5dp"
+                    android:textColor="@color/white"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:weightSum="100">
+
+                <TextView
+                    fontPath="@string/custom_font_path_bold"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="35"
+                    android:text="Decsription"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/txtUserDescription"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="65"
+                    android:hint="-"
+                    android:paddingLeft="5dp"
+                    android:textColor="@color/white"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>
