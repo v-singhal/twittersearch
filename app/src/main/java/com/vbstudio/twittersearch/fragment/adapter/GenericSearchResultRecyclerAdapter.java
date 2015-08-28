@@ -1,0 +1,106 @@
+package com.vbstudio.twittersearch.fragment.adapter;
+
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.vbstudio.twittersearch.R;
+import com.vbstudio.twittersearch.fragment.BaseFragment;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import twitter4j.Status;
+
+/**
+ * Created by vaibhav on 17/4/15.
+ */
+public class GenericSearchResultRecyclerAdapter extends RecyclerView.Adapter<GenericSearchResultRecyclerAdapter.GenericSearchResultViewHolder> implements View.OnClickListener {
+
+    private List<Status> resultList;
+    private Context context;
+    private BaseFragment baseFragment;
+    private ViewGroup upcomingSessionRecyclerView;
+    private List<View> parentItemViewList;
+
+    // Provide a suitable constructor (depends on the kind of dataset)
+    public GenericSearchResultRecyclerAdapter(RecyclerView upcomingSessionRecyclerView, ArrayList<Status> resultList, Context context, BaseFragment baseFragment) {
+        this.resultList = resultList;
+        this.context = context;
+        this.baseFragment = baseFragment;
+        this.upcomingSessionRecyclerView = upcomingSessionRecyclerView;
+        this.parentItemViewList = new ArrayList<View>();
+    }
+
+    @Override
+    public GenericSearchResultViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_layout_generic_result, parent, false);
+        GenericSearchResultViewHolder vh = new GenericSearchResultViewHolder(v, context, baseFragment);
+        return vh;
+    }
+
+    @Override
+    public void onBindViewHolder(GenericSearchResultViewHolder holder, int position) {
+        // - get element from your dataset at this position
+        // - replace the contents of the view with that element
+        String sessionType = "";
+        String resultValueUsername = "@" + resultList.get(position).getUser().getScreenName();
+        String resultValue = resultList.get(position).getText();
+
+        holder.txtSearchValueUser.setText(resultValueUsername);
+        holder.txtSearchValue.setText(resultValue);
+
+        holder.txtSearchValue.setOnClickListener(this);
+        setViewPosition((View) holder.txtSearchValue, position);
+
+        parentItemViewList.add(holder.parentItemView);
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return resultList.size();
+    }
+
+    /**
+     * Called when a view has been clicked.
+     *
+     * @param view The view that was clicked.
+     */
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+
+    }
+
+    private int getViewPosition(View view) {
+        return (int) view.getTag(view.getId());
+    }
+
+    private void setViewPosition(View view, int position) {
+        view.setTag(view.getId(), position);
+    }
+
+    /**
+     * ******************************************
+     */
+
+    public static class GenericSearchResultViewHolder extends RecyclerView.ViewHolder {
+
+        public View parentItemView;
+        public TextView txtSearchValueUser;
+        public TextView txtSearchValue;
+
+        public GenericSearchResultViewHolder(View view, Context context, BaseFragment baseFragment) {
+            super(view);
+
+            parentItemView = view;
+
+            txtSearchValueUser = (TextView) view.findViewById(R.id.txtSearchValueUser);
+            txtSearchValue = (TextView) view.findViewById(R.id.txtSearchValue);
+        }
+    }
+}

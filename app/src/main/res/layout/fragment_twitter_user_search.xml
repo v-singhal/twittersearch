@@ -52,7 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/userToBeSearchedLayout">
 
-        <com.vbstdio.twittersearch.network.AnimatedNetworkImageView
+        <com.vbstudio.twittersearch.network.AnimatedNetworkImageView
             android:id="@+id/imgUserProfileImage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
