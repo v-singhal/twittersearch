@@ -5,6 +5,6 @@
     <string name="custom_font_path_italic">fonts/Lato/italic.ttf</string>
     <string name="custom_font_path_bold">fonts/Lato/bold.ttf</string>
     <string name="custom_font_path_heavy">fonts/Lato/heavy.ttf</string>
-    <string name="custom_font_path_bold_italic">fonts/Lato/bold_italic.ttf</string>
+    <string name="custom_font_path_heavy_italic">fonts/Lato/bold_italic.ttf</string>
     <string name="custom_font_path_medium">fonts/Lato/medium.ttf</string>
 </resources>

@@ -60,7 +60,7 @@
 
         <Button
             android:id="@+id/btnDismissDialog"
-            fontPath="@string/custom_font_path_bold"
+            fontPath="@string/custom_font_path_heavy"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="50"
@@ -71,7 +71,7 @@
 
         <Button
             android:id="@+id/btnLogMeOut"
-            fontPath="@string/custom_font_path_bold"
+            fontPath="@string/custom_font_path_heavy"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="50"

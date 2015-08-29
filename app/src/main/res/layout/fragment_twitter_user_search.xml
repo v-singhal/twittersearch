@@ -80,7 +80,7 @@
                 android:weightSum="100">
 
                 <TextView
-                    fontPath="@string/custom_font_path_bold"
+                    fontPath="@string/custom_font_path_heavy"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="35"
@@ -105,7 +105,7 @@
                 android:weightSum="100">
 
                 <TextView
-                    fontPath="@string/custom_font_path_bold"
+                    fontPath="@string/custom_font_path_heavy"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="35"
@@ -130,7 +130,7 @@
                 android:weightSum="100">
 
                 <TextView
-                    fontPath="@string/custom_font_path_bold"
+                    fontPath="@string/custom_font_path_heavy"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="35"
@@ -155,7 +155,7 @@
                 android:weightSum="100">
 
                 <TextView
-                    fontPath="@string/custom_font_path_bold"
+                    fontPath="@string/custom_font_path_heavy"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="35"
@@ -180,7 +180,7 @@
                 android:weightSum="100">
 
                 <TextView
-                    fontPath="@string/custom_font_path_bold"
+                    fontPath="@string/custom_font_path_heavy"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="35"

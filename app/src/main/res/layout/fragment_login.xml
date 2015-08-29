@@ -21,7 +21,7 @@
 
 
             <TextView
-                fontPath="@string/custom_font_path_bold"
+                fontPath="@string/custom_font_path_heavy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -59,7 +59,7 @@
                 android:src="@drawable/twitter_logo"/>
 
             <TextView
-                fontPath="@string/custom_font_path_bold"
+                fontPath="@string/custom_font_path_heavy"
                 android:layout_width="200dp"
                 android:layout_height="@dimen/default_button_height"
                 android:background="@color/transparent"
