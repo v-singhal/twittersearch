@@ -6,7 +6,7 @@ The app lets you search through twitter for basic user info that is available pu
 <img src="https://github.com/v-singhal/twittersearch/blob/v1.0.1/Screenshots/1.%20login.png" width="200">
 <img src="https://github.com/v-singhal/twittersearch/blob/v1.0.1/Screenshots/2.%20hash_tag_search.png" width="200">
 
-#### App Stores
+#### App Link
 <!-- edit this image location -->
 [![Get it on Google Play](https://raw.github.com/repat/README-template/master/googleplay.png)](https://play.google.com/store/apps/details?id=com.vbstudio.twittersearch)
 
