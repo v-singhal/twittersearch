@@ -49,7 +49,7 @@ public class TwitterSearchFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        
+
         setupView(view);
 
     }
@@ -106,9 +106,10 @@ public class TwitterSearchFragment extends BaseFragment {
         addFragmentToList(TwitterStringSearchFragment.newInstance(), "String Search");
 
         twitterSearchViewPager = (ViewPager) view.findViewById(R.id.twitterSearchViewPager);
+        twitterSearchViewPager.setOffscreenPageLimit(3);
         twitterSearchViewPageAdapter = new TwitterSearchPageAdapter(getChildFragmentManager(), getActivity(), embeddedFragmentDataList);
         twitterSearchViewPager.setAdapter(twitterSearchViewPageAdapter);
-        
+
         slidingTabs = (PagerSlidingTabStrip) view.findViewById(R.id.twitterSearchViewPagerTab);
         slidingTabs.setShouldExpand(true);
         slidingTabs.setTextColorResource(android.R.color.white);
