@@ -8,7 +8,7 @@ The app lets you search through twitter for basic user info that is available pu
 
 #### App Link
 <!-- edit this image location -->
-[![Get it on Google Play](https://raw.github.com/repat/README-template/master/googleplay.png)](https://play.google.com/store/apps/details?id=com.vbstudio.twittersearch)
+<a href="https://play.google.com/store/apps/details?id=com.vbstudio.twittersearch" target="_blank"><img src="https://raw.github.com/repat/README-template/master/googleplay.png"></a>
 
 ## Contact
 #### Developer
