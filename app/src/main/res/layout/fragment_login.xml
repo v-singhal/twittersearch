@@ -25,7 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="TWITTER SEARCH"
+                android:text="SEARCH IT - TWITTER"
                 android:textColor="@color/otherCta"
                 android:textSize="30sp"
                 android:textStyle="bold"/>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Twitter Search</string>
+    <string name="app_name">Search it Twitter</string>
 
     <string name="custom_font_path">fonts/Lato/regular.ttf</string>
     <string name="custom_font_path_italic">fonts/Lato/italic.ttf</string>

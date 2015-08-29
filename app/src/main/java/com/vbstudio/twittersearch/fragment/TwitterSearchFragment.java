@@ -38,7 +38,7 @@ public class TwitterSearchFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("Twitter Search");
+        setTitle("Search it");
     }
 
     @Override
