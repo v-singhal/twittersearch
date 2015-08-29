@@ -13,5 +13,3 @@ The app lets you search through twitter for basic user info that is available pu
 ## Contact
 #### Developer
 * LinkedIn: http://ow.ly/RwMYz
-
-[![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=username&url=https://github.com/username/appname&title=appname&language=&tags=github&category=software) 
