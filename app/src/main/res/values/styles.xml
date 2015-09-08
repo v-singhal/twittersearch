@@ -18,6 +18,7 @@
         <item name="android:windowNoTitle">true</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowBackground">@drawable/backgorund_diamond_pattern</item>
+        <item name="android:colorControlHighlight">@color/lighterMenuCta</item>
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
         <!-- Note that only our own TextView's will use the font attribute -->
     </style>
