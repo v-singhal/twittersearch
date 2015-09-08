@@ -15,7 +15,7 @@ import com.android.volley.VolleyError;
 import com.vbstudio.twittersearch.Constants.ConstanKeys;
 import com.vbstudio.twittersearch.R;
 import com.vbstudio.twittersearch.TwitterLoginActivity;
-import com.vbstudio.twittersearch.preferences.HaptikAssignmentPreferences;
+import com.vbstudio.twittersearch.preferences.SearchItPreferences;
 
 import org.json.JSONObject;
 
@@ -31,13 +31,13 @@ import twitter4j.conf.ConfigurationBuilder;
 /**
  * Created by vaibhav on 23/8/15.
  */
-public class LoginFragment extends BaseFragment {
+public class AppLoginFragment extends BaseFragment {
 
     private Twitter twitter;
     private RequestToken requestToken;
 
-    public static LoginFragment newInstance() {
-        LoginFragment fragment = new LoginFragment();
+    public static AppLoginFragment newInstance() {
+        AppLoginFragment fragment = new AppLoginFragment();
 
         return fragment;
     }
@@ -181,34 +181,40 @@ public class LoginFragment extends BaseFragment {
         try {
             AccessToken accessToken = twitter.getOAuthAccessToken(requestToken, verifier);
 
-            saveInfoInSharedPrefernces(accessToken);
+            saveInfoInSharedPreferences(accessToken);
             openTwitterSearchFragment();
-            enableLogoutButton();
 
         } catch (Exception e) {
             Log.e(BaseFragment.LOG_TAG, "Twitter Login Failed: " + e.getMessage());
         }
     }
 
-    private void saveInfoInSharedPrefernces(AccessToken accessToken) {
+    private void saveInfoInSharedPreferences(AccessToken accessToken) {
         try {
             String accessTokenForRequests = accessToken.getToken();
             String accessTokenSecretForRequests = accessToken.getTokenSecret();
             long userId = accessToken.getUserId();
             User user = twitter.showUser(userId);
+            String userImageUrl = user.getOriginalProfileImageURL();
+            String userBackgroundImageUrl = user.getProfileBackgroundImageURL();
             String username = user.getName();
+            String userHandle = user.getScreenName();
 
             Log.i(BaseFragment.LOG_TAG, "accessTokenForRequests "  + accessTokenForRequests);
             Log.i(BaseFragment.LOG_TAG, "accessTokenSecretForRequests "  + accessTokenSecretForRequests);
             Log.i(BaseFragment.LOG_TAG, "userId "  + String.valueOf(userId));
             Log.i(BaseFragment.LOG_TAG, "username "  + username);
+            Log.i(BaseFragment.LOG_TAG, "userHandle "  + userHandle);
 
-            HaptikAssignmentPreferences.saveUserLoginState(getActivity(), true);
-            HaptikAssignmentPreferences.saveTwitterToken(getActivity(), accessTokenForRequests);
-            HaptikAssignmentPreferences.saveTwitterTokenSecret(getActivity(), accessTokenSecretForRequests);
-            HaptikAssignmentPreferences.saveUserId(getActivity(), userId);
-            HaptikAssignmentPreferences.saveUserName(getActivity(), username);
-            //HaptikAssignmentPreferences.saveOauthToken(getActivity(), accessToken);
+            SearchItPreferences.saveUserLoginState(getActivity(), true);
+            SearchItPreferences.saveTwitterToken(getActivity(), accessTokenForRequests);
+            SearchItPreferences.saveTwitterTokenSecret(getActivity(), accessTokenSecretForRequests);
+            SearchItPreferences.saveUserProfileImgUrl(getActivity(), userImageUrl);
+            SearchItPreferences.saveUserProfileBackgroundImgUrl(getActivity(), userBackgroundImageUrl);
+            SearchItPreferences.saveUserId(getActivity(), userId);
+            SearchItPreferences.saveUserName(getActivity(), username);
+            SearchItPreferences.saveUserHandle(getActivity(), userHandle);
+            //SearchItPreferences.saveOauthToken(getActivity(), accessToken);
 
         } catch (Exception e) {
             e.printStackTrace();

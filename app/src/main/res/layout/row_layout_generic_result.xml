@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_centerHorizontal="true"
     android:orientation="vertical">
 
     <TextView
@@ -21,6 +22,14 @@
         android:hint="Search result"
         android:padding="10dp"
         android:textColor="@color/otherCta"/>
+
+    <com.vbstudio.twittersearch.network.AnimatedNetworkImageView
+        android:id="@+id/imgTweetImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/backgorund_diamond_pattern"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="10dp"/>
 
     <View
         android:layout_width="match_parent"

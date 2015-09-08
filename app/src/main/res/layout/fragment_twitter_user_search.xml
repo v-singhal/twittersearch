@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -12,7 +13,6 @@
         android:layout_alignParentTop="true"
         android:gravity="bottom"
         android:orientation="vertical"
-        android:paddingBottom="10dp"
         android:paddingTop="10dp">
 
         <LinearLayout
@@ -49,26 +49,39 @@
     <RelativeLayout
         android:id="@+id/userDetails"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/userToBeSearchedLayout">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/userToBeSearchedLayout"
+        android:gravity="center">
 
         <com.vbstudio.twittersearch.network.AnimatedNetworkImageView
             android:id="@+id/imgUserProfileImage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/backgorund_diamond_pattern"
+            android:alpha="0.5"
             android:scaleType="centerCrop"/>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:alpha="0.6"
-            android:background="@color/otherCta"/>
+            android:alpha="0.5"
+            android:background="@drawable/backgorund_diamond_pattern"/>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/userProfileImage"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_centerVertical="true"
+            android:layout_margin="10dp"
+            android:scaleType="centerCrop"
+            app:border_color="@color/superLightGrey"
+            app:border_width="1dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/userProfileImage"
             android:orientation="vertical"
             android:paddingLeft="10dp"
             android:paddingRight="10dp">
@@ -85,7 +98,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="35"
                     android:text="Name"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textStyle="bold"/>
 
                 <TextView
@@ -95,7 +108,7 @@
                     android:layout_weight="65"
                     android:hint="-"
                     android:paddingLeft="5dp"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/black"/>
             </LinearLayout>
 
             <LinearLayout
@@ -110,7 +123,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="35"
                     android:text="Screen Name"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textStyle="bold"/>
 
                 <TextView
@@ -120,7 +133,7 @@
                     android:layout_weight="65"
                     android:hint="-"
                     android:paddingLeft="5dp"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/black"/>
             </LinearLayout>
 
             <LinearLayout
@@ -135,7 +148,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="35"
                     android:text="Location"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textStyle="bold"/>
 
                 <TextView
@@ -145,7 +158,7 @@
                     android:layout_weight="65"
                     android:hint="-"
                     android:paddingLeft="5dp"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/black"/>
             </LinearLayout>
 
             <LinearLayout
@@ -160,7 +173,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="35"
                     android:text="Following"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textStyle="bold"/>
 
                 <TextView
@@ -170,7 +183,7 @@
                     android:layout_weight="65"
                     android:hint="-"
                     android:paddingLeft="5dp"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/black"/>
             </LinearLayout>
 
             <LinearLayout
@@ -185,7 +198,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="35"
                     android:text="Decsription"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textStyle="bold"/>
 
                 <TextView
@@ -195,7 +208,7 @@
                     android:layout_weight="65"
                     android:hint="-"
                     android:paddingLeft="5dp"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/black"/>
             </LinearLayout>
 
         </LinearLayout>

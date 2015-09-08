@@ -1,7 +1,12 @@
 package com.vbstudio.twittersearch.fragment;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
@@ -9,6 +14,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +24,7 @@ import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
 import com.vbstudio.twittersearch.R;
 import com.vbstudio.twittersearch.network.AnimatedNetworkImageView;
 import com.vbstudio.twittersearch.network.ImageRequestManager;
@@ -25,21 +32,24 @@ import com.vbstudio.twittersearch.network.NetworkManager;
 
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.net.UnknownHostException;
 
-import static com.vbstudio.twittersearch.utils.BooleanUtils.isValidBoolean;
 import static com.vbstudio.twittersearch.utils.StringUtils.isValidString;
 import static com.vbstudio.twittersearch.utils.UIUtils.animateFadeHide;
 import static com.vbstudio.twittersearch.utils.UIUtils.animateFadeShow;
+import static com.vbstudio.twittersearch.utils.UIUtils.animateImageAddition;
 import static com.vbstudio.twittersearch.utils.UIUtils.hideKeyboard;
 
 public class BaseFragment extends DialogFragment implements Response.Listener<JSONObject>, Response.ErrorListener, View.OnClickListener {
 
-    public final static String LOG_TAG = "HAPTIK";
+    public final static String LOG_TAG = "SEARCH_IT";
     public final static String TWITTER_API_BASE_URL = "https://api.twitter.com/1.1";
 
     private String title;
-    private boolean isLogoutEnabled;
     private NetworkManager networkManager;
     private ImageRequestManager imageRequestManager;
 
@@ -60,6 +70,8 @@ public class BaseFragment extends DialogFragment implements Response.Listener<JS
 
     public void handleUncaughtException(Thread thread, Throwable e) {
         e.printStackTrace();
+
+        getActivity().finish();
     }
 
     @Override
@@ -104,30 +116,26 @@ public class BaseFragment extends DialogFragment implements Response.Listener<JS
         Log.e(BaseFragment.LOG_TAG, "ERROR RESPONSE: " + error.toString());
 
         /*********PRINT HTTP ERROR CODES*********/
-        if(error.networkResponse!= null) {
+        if (error.networkResponse != null) {
             Log.i(BaseFragment.LOG_TAG, "HTTP ERROR CODE: " + error.networkResponse.statusCode);
         }
         /****************************************/
 
-        if(error.getCause() != null && error.getCause() instanceof UnknownHostException) {
+        if (error.getCause() != null && error.getCause() instanceof UnknownHostException) {
             Toast.makeText(getActivity().getApplicationContext(), "Internet unavailable", Toast.LENGTH_LONG).show();
             return;
-        }
-        else if(error instanceof NoConnectionError) {
+        } else if (error instanceof NoConnectionError) {
             Toast.makeText(getActivity().getApplicationContext(), "Internet unavailable", Toast.LENGTH_LONG).show();
             return;
-        }
-        else if (error instanceof TimeoutError) {
+        } else if (error instanceof TimeoutError) {
             Toast.makeText(getActivity().getApplicationContext(), "Your request has timed out. Please check your internet connectivity", Toast.LENGTH_SHORT).show();
             return;
-        }
-        else if (error instanceof ServerError) {
-            if(error.networkResponse!= null){
-                if(error.networkResponse.statusCode == 403) {
+        } else if (error instanceof ServerError) {
+            if (error.networkResponse != null) {
+                if (error.networkResponse.statusCode == 403) {
                     Toast.makeText(getActivity(), "Authentication Error", Toast.LENGTH_SHORT).show();
                 }
-            }
-            else {
+            } else {
                 Toast.makeText(getActivity().getApplicationContext(), "Some error occurred. Please try again", Toast.LENGTH_SHORT).show();
             }
             return;
@@ -193,14 +201,8 @@ public class BaseFragment extends DialogFragment implements Response.Listener<JS
     }
 
     protected void hideToolbar() {
-        if(getActivity() != null) {
+        if (getActivity() != null) {
             ((ActionBarActivity) getActivity()).getSupportActionBar().hide();
-        }
-    }
-
-    protected void enableLogoutButton() {
-        if(getActivity() != null) {
-            ((ActionBarActivity) getActivity()).getSupportActionBar().getCustomView().findViewById(R.id.btnLogout).setVisibility(View.VISIBLE);
         }
     }
 
@@ -210,40 +212,84 @@ public class BaseFragment extends DialogFragment implements Response.Listener<JS
 
     protected void addDataForValidString(String value, int viewId) {
         Log.i(BaseFragment.LOG_TAG, value);
-        if(!isValidString(value)) {
+        if (!isValidString(value)) {
             value = "-";
         }
         ((TextView) getView().findViewById(viewId)).setText(value);
 
     }
 
-    protected void addImageToView(String imageUrl, int imgViewId) {
-        if(isValidString(imageUrl)) {
+    public static Typeface customTypefaceFromBase(Context context) {
+        return Typeface.createFromAsset(context.getAssets(), context.getResources().getString(R.string.custom_font_path));
+    }
+
+    public void addImageToAnimatedNetworkImageView(String imageUrl, int imgViewId) {
+        //((AnimatedNetworkImageView) getView().findViewById(imgViewId)).setImageBitmap(null);
+        if (isValidString(imageUrl)) {
             ((AnimatedNetworkImageView) getView().findViewById(imgViewId)).setImageUrl(imageUrl, getImageRequestManager().getImageLoader());
         }
     }
 
-    /***********************************/
+    public void addImageToImageView(final Activity activity, final String imageUrl, int imageViewId) {
+        final ImageView imageView = (ImageView) getView().findViewById(imageViewId);
+        //imageView.setImageBitmap(null);
+
+        if (isValidString(imageUrl)) {
+            new AsyncTask<String, Bitmap, Bitmap>() {
+                @Override
+                protected Bitmap doInBackground(String... strings) {
+                    return getBitmapFromUrl(imageUrl);
+                }
+
+                @Override
+                protected void onPostExecute(final Bitmap imageBitmap) {
+                    if(imageBitmap != null) {
+                        addBitmapToView(activity, imageBitmap, imageView);
+                    } else {
+                        imageView.setVisibility(View.GONE);
+                    }
+                }
+            }.execute();
+        }
+    }
+
+    private Bitmap getBitmapFromUrl(String imageUrl) {
+        try {
+            URL url = new URL(imageUrl);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            Bitmap myBitmap = BitmapFactory.decodeStream(input);
+
+            return myBitmap;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private void addBitmapToView(Activity activity, final Bitmap imageBitmap, final ImageView imageView) {
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                animateImageAddition(imageBitmap, imageView);
+            }
+        });
+    }
+
+    /**
+     * *******************************
+     */
 
     public void setTitle(String title) {
         this.title = title;
-        this.isLogoutEnabled = true;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public boolean isLogoutEnabled() {
-        if(!isValidBoolean(isLogoutEnabled)) {
-            isLogoutEnabled  = true;
-        }
-        return isLogoutEnabled;
-    }
-
-    public void setIsLogoutEnabled(boolean isLogoutEnabled) {
-        this.isLogoutEnabled = isLogoutEnabled;
-    }
 
     public NetworkManager getNetworkManager() {
         return networkManager;
@@ -255,5 +301,9 @@ public class BaseFragment extends DialogFragment implements Response.Listener<JS
 
     public void setImageRequestManager(ImageRequestManager imageRequestManager) {
         this.imageRequestManager = imageRequestManager;
+    }
+
+    public ImageLoader getImageLoader() {
+        return getImageRequestManager().getImageLoader();
     }
 }

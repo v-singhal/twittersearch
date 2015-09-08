@@ -10,6 +10,7 @@ import android.util.AttributeSet;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
+import com.vbstudio.twittersearch.R;
 
 /**
  * Created by vaibhav on 16/4/15.
@@ -58,7 +59,7 @@ public class AnimatedNetworkImageView extends NetworkImageView {
                 new BitmapDrawable(getContext().getResources(), bm)
         });
 
-        setBackgroundColor(android.R.color.white);
+        setBackgroundColor(R.color.white);
         setImageDrawable(transitionDrawable);
         transitionDrawable.setCrossFadeEnabled(true);
         transitionDrawable.startTransition(FADE_IN_MS);

@@ -40,6 +40,8 @@ import static com.vbstudio.twittersearch.utils.UIUtils.hideKeyboard;
  */
 public class TwitterHashTagSearchFragment extends BaseFragment implements TextView.OnEditorActionListener {
 
+    long lastID = Long.MAX_VALUE;
+
     private RecyclerView tagsearchResultRecyclerView;
     private RecyclerView.Adapter tagsearchResultListAdapter;
     private RecyclerView.LayoutManager tagsearchResultRecyclerLayoutManager;
@@ -168,7 +170,6 @@ public class TwitterHashTagSearchFragment extends BaseFragment implements TextVi
             QueryResult result;
             int numberOfTweets = 100;
             int searchInterval = 10;
-            long lastID = Long.MAX_VALUE;
             int sizeInPreviousSearch = statusResultList.size();
             int retries = 0;
             int maxRetries = 5;

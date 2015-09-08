@@ -15,7 +15,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.vbstudio.twittersearch.Constants.ConstanKeys;
 import com.vbstudio.twittersearch.fragment.BaseFragment;
-import com.vbstudio.twittersearch.preferences.HaptikAssignmentPreferences;
+import com.vbstudio.twittersearch.preferences.SearchItPreferences;
 
 import org.json.JSONObject;
 
@@ -147,7 +147,7 @@ public class NetworkManager implements RequestFilter {
         oauthMap.put("oauth_signature", "");
         oauthMap.put("oauth_signature_method", "HMAC-SHA1");
         oauthMap.put("oauth_timestamp", String.valueOf(Calendar.getInstance().getTimeInMillis()));
-        oauthMap.put("oauth_token", HaptikAssignmentPreferences.getTwitterToken(context));
+        oauthMap.put("oauth_token", SearchItPreferences.getTwitterToken(context));
         oauthMap.put("oauth_version", "1.0");
 
         return oauthMap;
@@ -161,7 +161,7 @@ public class NetworkManager implements RequestFilter {
         oauthString += "&" +"oauth_signature=" + generateSignature(context, url);
         oauthString += "&" +"oauth_signature_method=" + "HMAC-SHA1";
         oauthString += "&" +"oauth_timestamp=" + String.valueOf(Calendar.getInstance().getTimeInMillis());
-        oauthString += "&" +"oauth_token=" + HaptikAssignmentPreferences.getTwitterToken(context);
+        oauthString += "&" +"oauth_token=" + SearchItPreferences.getTwitterToken(context);
         oauthString += "&" +"oauth_version=" + "1.0";
 
         return oauthString;
@@ -178,7 +178,7 @@ public class NetworkManager implements RequestFilter {
 
     private String generateSignature(Context context, String signatueBaseStr) {
         String oAuthConsumerSecret = ConstanKeys.TWITTER_CONSUMER_SECRET;
-        String oAuthTokenSecret = HaptikAssignmentPreferences.getTwitterTokenSecret(context);
+        String oAuthTokenSecret = SearchItPreferences.getTwitterTokenSecret(context);
         byte[] byteHMAC = null;
         try {
             Mac mac = Mac.getInstance("HmacSHA1");

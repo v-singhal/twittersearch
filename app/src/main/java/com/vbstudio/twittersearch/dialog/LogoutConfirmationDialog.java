@@ -30,7 +30,7 @@ public class LogoutConfirmationDialog extends Dialog implements View.OnClickList
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.btnLogMeOut) {
-            ((MainActivity) context).performActionOnSignupAndLogout();
+            ((MainActivity) context).performActionLogout();
         }
         else if (id == R.id.btnDismissDialog) {
 

@@ -59,8 +59,8 @@ public class TwitterLoginWebViewClient extends WebViewClient {
         super.onPageFinished(view, url);
         animateFadeHide(((FragmentActivity) context).findViewById(R.id.pageLoadingIndicator));
 
-        Log.i(BaseFragment.LOG_TAG, "PAYMENT PAGE URL: " + url);
-        Log.i(BaseFragment.LOG_TAG, "PAYMENT PAGE TITLE: " + view.getTitle());
+        Log.i(BaseFragment.LOG_TAG, "PAGE URL: " + url);
+        Log.i(BaseFragment.LOG_TAG, "PAGE TITLE: " + view.getTitle());
 
         /*if (url.contains(ConstanKeys.TWITTER_CALLBACK_URL)) {
             Uri uri = Uri.parse(url);

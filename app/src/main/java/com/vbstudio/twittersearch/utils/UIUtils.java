@@ -2,8 +2,10 @@ package com.vbstudio.twittersearch.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageView;
 
 /**
  * Created by vaibhav on 23/8/15.
@@ -29,5 +31,13 @@ public class UIUtils {
         view.setVisibility(View.VISIBLE);
 
         view.animate().alpha(1f).setDuration(300);
+    }
+
+    public static void animateImageAddition(Bitmap imageBitmap, ImageView imageView) {
+        //imageView.setImageBitmap(null);
+        imageView.setAlpha(0f);
+        imageView.setImageBitmap(imageBitmap);
+
+        imageView.animate().alpha(1f).setDuration(500);
     }
 }

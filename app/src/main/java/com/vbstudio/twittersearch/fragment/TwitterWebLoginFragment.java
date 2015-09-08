@@ -13,7 +13,7 @@ import android.webkit.WebView;
 import com.vbstudio.twittersearch.R;
 import com.vbstudio.twittersearch.widgets.TwitterLoginWebViewClient;
 
-public class TwitterLoginFragment extends BaseFragment implements OnClickListener {
+public class TwitterWebLoginFragment extends BaseFragment implements OnClickListener {
 	
 	private Bundle transactionDetails;
 	private WebView webView;
@@ -22,7 +22,7 @@ public class TwitterLoginFragment extends BaseFragment implements OnClickListene
 
 
 	public static BaseFragment newInstance(Bundle transactionDetails) {
-        TwitterLoginFragment paymentFragment = new TwitterLoginFragment();
+        TwitterWebLoginFragment paymentFragment = new TwitterWebLoginFragment();
 		paymentFragment.setTransactionDetails(transactionDetails);
 		paymentFragment.setUrl(transactionDetails.getString("url"));
 		return paymentFragment;
@@ -33,7 +33,6 @@ public class TwitterLoginFragment extends BaseFragment implements OnClickListene
 		super.onCreate(savedInstanceState);
 
         setTitle("Twitter Login");
-        setIsLogoutEnabled(false);
 	}
 	
 	@Override

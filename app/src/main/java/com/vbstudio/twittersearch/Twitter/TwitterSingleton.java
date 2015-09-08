@@ -3,7 +3,7 @@ package com.vbstudio.twittersearch.Twitter;
 import android.content.Context;
 
 import com.vbstudio.twittersearch.Constants.ConstanKeys;
-import com.vbstudio.twittersearch.preferences.HaptikAssignmentPreferences;
+import com.vbstudio.twittersearch.preferences.SearchItPreferences;
 
 import twitter4j.Twitter;
 import twitter4j.TwitterFactory;
@@ -26,8 +26,8 @@ public class TwitterSingleton {
             ConfigurationBuilder builder = new ConfigurationBuilder();
             builder.setOAuthConsumerKey(ConstanKeys.TWITTER_CONSUMER_KEY);
             builder.setOAuthConsumerSecret(ConstanKeys.TWITTER_CONSUMER_SECRET);
-            builder.setOAuthAccessToken(HaptikAssignmentPreferences.getTwitterToken(context));
-            builder.setOAuthAccessTokenSecret(HaptikAssignmentPreferences.getTwitterTokenSecret(context));
+            builder.setOAuthAccessToken(SearchItPreferences.getTwitterToken(context));
+            builder.setOAuthAccessTokenSecret(SearchItPreferences.getTwitterTokenSecret(context));
             Configuration configuration = builder.build();
 
             TwitterFactory factory = new TwitterFactory(configuration);

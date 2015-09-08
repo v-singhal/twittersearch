@@ -9,10 +9,12 @@ import android.widget.TextView;
 
 import com.vbstudio.twittersearch.R;
 import com.vbstudio.twittersearch.fragment.BaseFragment;
+import com.vbstudio.twittersearch.network.AnimatedNetworkImageView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import twitter4j.MediaEntity;
 import twitter4j.Status;
 
 /**
@@ -49,9 +51,23 @@ public class GenericSearchResultRecyclerAdapter extends RecyclerView.Adapter<Gen
         String sessionType = "";
         String resultValueUsername = "@" + resultList.get(position).getUser().getScreenName();
         String resultValue = resultList.get(position).getText();
+        MediaEntity[] imageList = resultList.get(position).getMediaEntities();
 
         holder.txtSearchValueUser.setText(resultValueUsername);
         holder.txtSearchValue.setText(resultValue);
+        holder.imgTweetImage.setImageBitmap(null);
+
+        try {
+            if (imageList.length > 0) {
+                holder.imgTweetImage.setVisibility(View.VISIBLE);
+                holder.imgTweetImage.setImageUrl(imageList[0].getMediaURL(), baseFragment.getImageLoader());
+            } else {
+                holder.imgTweetImage.setVisibility(View.GONE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            holder.imgTweetImage.setVisibility(View.GONE);
+        }
 
         holder.txtSearchValue.setOnClickListener(this);
         setViewPosition((View) holder.txtSearchValue, position);
@@ -93,6 +109,7 @@ public class GenericSearchResultRecyclerAdapter extends RecyclerView.Adapter<Gen
         public View parentItemView;
         public TextView txtSearchValueUser;
         public TextView txtSearchValue;
+        public AnimatedNetworkImageView imgTweetImage;
 
         public GenericSearchResultViewHolder(View view, Context context, BaseFragment baseFragment) {
             super(view);
@@ -101,6 +118,7 @@ public class GenericSearchResultRecyclerAdapter extends RecyclerView.Adapter<Gen
 
             txtSearchValueUser = (TextView) view.findViewById(R.id.txtSearchValueUser);
             txtSearchValue = (TextView) view.findViewById(R.id.txtSearchValue);
+            imgTweetImage = (AnimatedNetworkImageView) view.findViewById(R.id.imgTweetImage);
         }
     }
 }

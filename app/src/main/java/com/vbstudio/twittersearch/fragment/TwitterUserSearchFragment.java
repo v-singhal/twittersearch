@@ -172,14 +172,15 @@ public class TwitterUserSearchFragment extends BaseFragment implements TextView.
                 String description = user.getDescription();
                 String userImageUrl = user.getBiggerProfileImageURL();
 
-                getView().findViewById(R.id.userDetails).setVisibility(View.VISIBLE);
-
                 addDataForValidString(name, R.id.txtUserName);
                 addDataForValidString(screenName, R.id.txtUserScreenName);
                 addDataForValidString(location, R.id.txtUserLocation);
                 addDataForValidString(friendCount, R.id.txtUserFriendCount);
                 addDataForValidString(description, R.id.txtUserDescription);
-                addImageToView(userImageUrl, R.id.imgUserProfileImage);
+                addImageToAnimatedNetworkImageView(userImageUrl, R.id.imgUserProfileImage);
+                addImageToImageView(getActivity(), userImageUrl, R.id.userProfileImage);
+
+                getView().findViewById(R.id.userDetails).setVisibility(View.VISIBLE);
             }
         });
     }

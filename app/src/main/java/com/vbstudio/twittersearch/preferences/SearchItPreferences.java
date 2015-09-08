@@ -3,13 +3,16 @@ package com.vbstudio.twittersearch.preferences;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-public class HaptikAssignmentPreferences {
+public class SearchItPreferences {
 
-    public static final String IS_LOGGED_IN = "isMainPaused";
+    public static final String IS_LOGGED_IN = "isLoggedIn";
     public static final String TWITTER_TOKEN = "twitterToken";
     public static final String TWITTER_TOKEN_SECRET = "twitterTokenSecret";
     public static final String USERID = "userId";
+    public static final String USER_PROFILE_IMG_URL = "userProfileImageUrl";
+    public static final String USER_PROFILE_BACKGROUND_IMG_URL = "userProfileBackgroundImageUrl";
     public static final String USERNAME = "username";
+    public static final String USERHANDLE = "userHandle";
     public static final String OAUTH_TOKEN = "oauthToken";
 
 	public static SharedPreferences getPreferences(Context context) {
@@ -64,6 +67,28 @@ public class HaptikAssignmentPreferences {
 
     }
 
+    public static String getUserProfileImgUrl(Context context) {
+        SharedPreferences sharedPreferences = getPreferences(context);
+        return sharedPreferences.getString(USER_PROFILE_IMG_URL, "");
+    }
+
+    public static void saveUserProfileImgUrl(Context context, String userProfileImgUrl) {
+        SharedPreferences sharedPreferences = getPreferences(context);
+        sharedPreferences.edit().putString(USER_PROFILE_IMG_URL, userProfileImgUrl).commit();
+
+    }
+
+    public static String getUserProfileBackgroundImgUrl(Context context) {
+        SharedPreferences sharedPreferences = getPreferences(context);
+        return sharedPreferences.getString(USER_PROFILE_BACKGROUND_IMG_URL, "");
+    }
+
+    public static void saveUserProfileBackgroundImgUrl(Context context, String userProfileBackgroundImgUrl) {
+        SharedPreferences sharedPreferences = getPreferences(context);
+        sharedPreferences.edit().putString(USER_PROFILE_BACKGROUND_IMG_URL, userProfileBackgroundImgUrl).commit();
+
+    }
+
     public static String getUserName(Context context) {
         SharedPreferences sharedPreferences = getPreferences(context);
         return sharedPreferences.getString(USERNAME, "");
@@ -72,6 +97,17 @@ public class HaptikAssignmentPreferences {
     public static void saveUserName(Context context, String username) {
         SharedPreferences sharedPreferences = getPreferences(context);
         sharedPreferences.edit().putString(USERNAME, username).commit();
+
+    }
+
+    public static String getUserHandle(Context context) {
+        SharedPreferences sharedPreferences = getPreferences(context);
+        return sharedPreferences.getString(USERHANDLE, "");
+    }
+
+    public static void saveUserHandle(Context context, String userHandle) {
+        SharedPreferences sharedPreferences = getPreferences(context);
+        sharedPreferences.edit().putString(USERHANDLE, userHandle).commit();
 
     }
 

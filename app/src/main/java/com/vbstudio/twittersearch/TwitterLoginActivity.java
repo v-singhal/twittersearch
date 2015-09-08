@@ -7,13 +7,12 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.vbstudio.twittersearch.fragment.BaseFragment;
-import com.vbstudio.twittersearch.fragment.TwitterLoginFragment;
+import com.vbstudio.twittersearch.fragment.TwitterWebLoginFragment;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -39,7 +38,7 @@ public class TwitterLoginActivity extends ActionBarActivity {
             if (intentForPayment.getExtras() != null) {
                 String url = intentForPayment.getExtras().getString(TwitterLoginActivity.EXTRA_URL);
                 if(isValidString(url)) {
-                    openTwitterLoginFrament(url);
+                    openTwitterLoginFragment(url);
                 } else {
                     Toast.makeText(this, "Login url is malformed", Toast.LENGTH_LONG).show();
                     this.finish();
@@ -125,14 +124,13 @@ public class TwitterLoginActivity extends ActionBarActivity {
         getSupportActionBar().setHomeButtonEnabled(false);
 
         getSupportActionBar().setCustomView(R.layout.toolbar_view);
-        getSupportActionBar().getCustomView().findViewById(R.id.btnLogout).setVisibility(View.GONE);
     }
 
-    private void openTwitterLoginFrament(String url) {
+    private void openTwitterLoginFragment(String url) {
         Bundle bundle = new Bundle();
         bundle.putString("url", url);
 
-        TwitterLoginFragment twitterLoginFragment = (TwitterLoginFragment) TwitterLoginFragment.newInstance(bundle);
+        TwitterWebLoginFragment twitterLoginFragment = (TwitterWebLoginFragment) TwitterWebLoginFragment.newInstance(bundle);
         getSupportFragmentManager().beginTransaction().replace(containerId, twitterLoginFragment).commit();
     }
 }
