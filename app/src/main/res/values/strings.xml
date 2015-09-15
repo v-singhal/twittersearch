@@ -8,10 +8,8 @@
     <string name="custom_font_path_heavy_italic">fonts/Lato/bold_italic.ttf</string>
     <string name="custom_font_path_medium">fonts/Lato/medium.ttf</string>
 
-    <string name="icon_twitter">&#xf099;</string>
-    <string name="item_twitter">&#xf099; Twitter</string>
-    <string name="icon_movies">&#xf03d;</string>
-    <string name="item_movies">&#xf03d; Movies</string>
+    <string name="item_twitter">Twitter</string>
+    <string name="item_movies">Movies</string>
     <string name="item_my_profile">My Profile</string>
     <string name="item_logout">Logout</string>
 

@@ -59,7 +59,7 @@ public class AnimatedNetworkImageView extends NetworkImageView {
                 new BitmapDrawable(getContext().getResources(), bm)
         });
 
-        setBackgroundColor(R.color.white);
+        setBackgroundResource(R.color.transparent);
         setImageDrawable(transitionDrawable);
         transitionDrawable.setCrossFadeEnabled(true);
         transitionDrawable.startTransition(FADE_IN_MS);

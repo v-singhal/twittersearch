@@ -110,14 +110,7 @@ public class TwitterSearchFragment extends BaseFragment {
         twitterSearchViewPageAdapter = new TwitterSearchPageAdapter(getChildFragmentManager(), getActivity(), embeddedFragmentDataList);
         twitterSearchViewPager.setAdapter(twitterSearchViewPageAdapter);
 
-        slidingTabs = (PagerSlidingTabStrip) view.findViewById(R.id.twitterSearchViewPagerTab);
-        slidingTabs.setShouldExpand(true);
-        slidingTabs.setTextColorResource(android.R.color.white);
-        slidingTabs.setIndicatorColorResource(R.color.menuCta);
-        slidingTabs.setIndicatorHeight(slidingTabs.getIndicatorHeight());
-        slidingTabs.setUnderlineHeight(0);
-
-        slidingTabs.setViewPager(twitterSearchViewPager);
+        slidingTabs = intializePagerTabs((PagerSlidingTabStrip) view.findViewById(R.id.twitterSearchViewPagerTab), twitterSearchViewPager);
     }
 
     private void addFragmentToList(BaseFragment fragment, String fragmentTitle) {

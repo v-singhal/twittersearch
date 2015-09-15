@@ -7,10 +7,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
@@ -25,6 +27,7 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
+import com.astuetz.PagerSlidingTabStrip;
 import com.vbstudio.twittersearch.R;
 import com.vbstudio.twittersearch.network.AnimatedNetworkImageView;
 import com.vbstudio.twittersearch.network.ImageRequestManager;
@@ -276,6 +279,36 @@ public class BaseFragment extends DialogFragment implements Response.Listener<JS
                 animateImageAddition(imageBitmap, imageView);
             }
         });
+    }
+
+    protected PagerSlidingTabStrip intializePagerTabs(PagerSlidingTabStrip slidingTabs, ViewPager viewPager) {
+        slidingTabs.setShouldExpand(true);
+        slidingTabs.setTextColorResource(android.R.color.white);
+        slidingTabs.setIndicatorColorResource(R.color.menuCta);
+        slidingTabs.setIndicatorHeight(slidingTabs.getIndicatorHeight());
+        slidingTabs.setUnderlineHeight(0);
+        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+            slidingTabs.setUnderlineHeight(0);
+        }
+
+        slidingTabs.setViewPager(viewPager);
+        return slidingTabs;
+    }
+
+    protected PagerSlidingTabStrip intializeSubPagerTabs(PagerSlidingTabStrip slidingTabs, ViewPager viewPager) {
+        slidingTabs.setShouldExpand(true);
+        slidingTabs.setIndicatorHeight(12);
+        slidingTabs.setTextColorResource(android.R.color.white);
+        slidingTabs.setIndicatorColorResource(R.color.menuCta);
+        slidingTabs.setIndicatorHeight(slidingTabs.getIndicatorHeight());
+        slidingTabs.setUnderlineHeight(0);
+        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+            slidingTabs.setUnderlineHeight(0);
+        }
+
+        slidingTabs.setViewPager(viewPager);
+
+        return slidingTabs;
     }
 
     /**

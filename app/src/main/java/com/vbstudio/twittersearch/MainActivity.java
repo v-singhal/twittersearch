@@ -227,6 +227,7 @@ public class MainActivity extends ActionBarActivity implements Drawer.OnDrawerLi
             }
             RelativeLayout headerDrawerLayout = (RelativeLayout) materialDrawerHeader.findViewById(R.id.header_drawer);
             AnimatedNetworkImageView headerBackGround = (AnimatedNetworkImageView) materialDrawerHeader.findViewById(R.id.header_drawer_background);
+            ImageView userProfileImage = (ImageView) materialDrawerHeader.findViewById(R.id.userProfileImage);
             TextView headerName = (TextView) materialDrawerHeader.findViewById(R.id.header_drawer_name);
             TextView headerEmail = (TextView) materialDrawerHeader.findViewById(R.id.header_drawer_email);
 
@@ -236,12 +237,12 @@ public class MainActivity extends ActionBarActivity implements Drawer.OnDrawerLi
             } else {
                 headerEmail.setText(userHandle);
             }
-            addImageToImageView(this, userImageBackground, R.id.header_drawer_background);
-            addImageToImageView(this, userImageUrl, R.id.userProfileImage);
+            addImageToImageView(this, userImageBackground, headerBackGround);
+            addImageToImageView(this, userImageUrl, userProfileImage);
 
             materialDrawer.withActivity(this);
             materialDrawer.withOnDrawerListener(this);
-            materialDrawer.withSliderBackgroundColorRes(R.color.white);
+            materialDrawer.withSliderBackgroundDrawable(getResources().getDrawable(R.drawable.backgorund_diamond_pattern));
             materialDrawer.withStickyHeader(materialDrawerHeader);
             materialDrawer.withHeaderClickable(false);
             materialDrawer.withToolbar(toolbar);
@@ -313,8 +314,7 @@ public class MainActivity extends ActionBarActivity implements Drawer.OnDrawerLi
         BaseFragment.replaceStack(this, AppLoginFragment.newInstance());
     }
 
-    public void addImageToImageView(final Activity activity, final String imageUrl, int imageViewId) {
-        final ImageView imageView = (ImageView) findViewById(imageViewId);
+    public void addImageToImageView(final Activity activity, final String imageUrl, final ImageView imageView) {
         //imageView.setImageBitmap(null);
 
         if (isValidString(imageUrl)) {

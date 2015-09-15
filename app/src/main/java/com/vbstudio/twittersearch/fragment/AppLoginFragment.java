@@ -84,7 +84,6 @@ public class AppLoginFragment extends BaseFragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, final Intent data) {
-        hideLoadingIndicator();
 
         if (resultCode == Activity.RESULT_OK) {
 
@@ -187,6 +186,7 @@ public class AppLoginFragment extends BaseFragment {
         } catch (Exception e) {
             Log.e(BaseFragment.LOG_TAG, "Twitter Login Failed: " + e.getMessage());
         }
+        hideLoadingIndicator();
     }
 
     private void saveInfoInSharedPreferences(AccessToken accessToken) {

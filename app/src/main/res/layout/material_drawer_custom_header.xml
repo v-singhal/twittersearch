@@ -9,66 +9,74 @@
         android:id="@+id/header_drawer_background"
         android:layout_width="match_parent"
         android:layout_height="@dimen/material_drawer_account_header_height"
-        android:rotationY="0"
         android:scaleType="centerCrop"
-        android:src="@drawable/backgorund_diamond_pattern"/>
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/userProfileImage"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_centerVertical="true"
-        android:layout_margin="10dp"
-        android:scaleType="centerCrop"
-        app:border_color="@color/superLightGrey"
-        app:border_width="1dp"/>
+        android:background="@drawable/backgorund_diamond_pattern"/>
 
     <RelativeLayout
-        android:id="@+id/header_drawer"
         android:layout_width="match_parent"
         android:layout_height="@dimen/material_drawer_account_header_height">
 
-        <LinearLayout
-            android:id="@+id/header_drawer_text_section"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/userProfileImage"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginBottom="@dimen/material_drawer_padding"
-            android:clickable="true"
-            android:gravity="center_vertical"
-            android:orientation="vertical">
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="0dp"
+            android:scaleType="centerCrop"
+            app:border_color="@color/superLightGrey"
+            app:border_width="1dp"/>
 
-            <TextView
-                android:id="@+id/header_drawer_name"
-                fontPath="@string/custom_font_path_bold"
+        <RelativeLayout
+            android:id="@+id/header_drawer"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/material_drawer_account_header_height"
+            android:layout_toRightOf="@+id/userProfileImage">
+
+            <LinearLayout
+                android:id="@+id/header_drawer_text_section"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/material_drawer_vertical_padding"
-                android:layout_marginStart="@dimen/material_drawer_vertical_padding"
-                android:fontFamily="sans-serif-medium"
-                android:lines="1"
-                android:singleLine="true"
-                android:textColor="@color/black"
-                android:textSize="@dimen/material_drawer_account_header_text"
-                android:textStyle="bold"/>
+                android:layout_height="56dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="@dimen/material_drawer_padding"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/header_drawer_email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/material_drawer_vertical_padding"
-                android:layout_marginStart="@dimen/material_drawer_vertical_padding"
-                android:fontFamily="sans-serif"
-                android:lines="1"
-                android:singleLine="true"
-                android:textColor="@color/black"
-                android:textSize="@dimen/material_drawer_account_header_text"/>
+                <TextView
+                    android:id="@+id/header_drawer_name"
+                    fontPath="@string/custom_font_path_bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/material_drawer_vertical_padding"
+                    android:layout_marginStart="@dimen/material_drawer_vertical_padding"
+                    android:fontFamily="sans-serif-medium"
+                    android:lines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/material_drawer_account_header_text"
+                    android:textStyle="bold"/>
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/header_drawer_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/material_drawer_vertical_padding"
+                    android:layout_marginStart="@dimen/material_drawer_vertical_padding"
+                    android:fontFamily="sans-serif"
+                    android:lines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/material_drawer_account_header_text"/>
 
+            </LinearLayout>
+
+        </RelativeLayout>
     </RelativeLayout>
 </FrameLayout>
