@@ -27,6 +27,7 @@ import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 import com.vbstudio.twittersearch.dialog.LogoutConfirmationDialog;
 import com.vbstudio.twittersearch.fragment.AppLoginFragment;
 import com.vbstudio.twittersearch.fragment.BaseFragment;
+import com.vbstudio.twittersearch.fragment.MovieSearchFragment;
 import com.vbstudio.twittersearch.fragment.TwitterSearchFragment;
 import com.vbstudio.twittersearch.materialDrawer.SearchItMaterialDrawerItems;
 import com.vbstudio.twittersearch.network.AnimatedNetworkImageView;
@@ -274,9 +275,9 @@ public class MainActivity extends ActionBarActivity implements Drawer.OnDrawerLi
 
             String itemName = this.getString(((Nameable) drawerItem).getNameRes());
             if ((getString(R.string.item_twitter).equals(itemName))) {
-
+                BaseFragment.addToBackStack(this, TwitterSearchFragment.newInstance());
             } else if ((getString(R.string.item_movies).equals(itemName))) {
-
+                BaseFragment.addToBackStack(this, MovieSearchFragment.newInstance());
             } else if ((getString(R.string.item_my_profile).equals(itemName))) {
 
             } else if ((getString(R.string.item_logout).equals(itemName))) {

@@ -12,9 +12,7 @@
 
         <com.astuetz.PagerSlidingTabStrip
             android:id="@+id/twitterSearchViewPagerTab"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/bloated_view_pager_tab_height"
-            android:background="@color/otherCta"/>
+            style="@style/PagerSlidingTabStrip"/>
 
         <android.support.v4.view.ViewPager
             android:id="@+id/twitterSearchViewPager"

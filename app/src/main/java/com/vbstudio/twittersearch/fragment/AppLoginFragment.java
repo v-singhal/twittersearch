@@ -28,6 +28,8 @@ import twitter4j.auth.RequestToken;
 import twitter4j.conf.Configuration;
 import twitter4j.conf.ConfigurationBuilder;
 
+import static com.vbstudio.twittersearch.utils.StringUtils.isValidString;
+
 /**
  * Created by vaibhav on 23/8/15.
  */
@@ -196,13 +198,19 @@ public class AppLoginFragment extends BaseFragment {
             long userId = accessToken.getUserId();
             User user = twitter.showUser(userId);
             String userImageUrl = user.getOriginalProfileImageURL();
-            String userBackgroundImageUrl = user.getProfileBackgroundImageURL();
+            String userBackgroundImageUrl = user.getProfileBannerURL();
             String username = user.getName();
             String userHandle = user.getScreenName();
+
+            if(!isValidString(userBackgroundImageUrl)) {
+                userBackgroundImageUrl = user.getProfileBackgroundImageURL();
+            }
 
             Log.i(BaseFragment.LOG_TAG, "accessTokenForRequests "  + accessTokenForRequests);
             Log.i(BaseFragment.LOG_TAG, "accessTokenSecretForRequests "  + accessTokenSecretForRequests);
             Log.i(BaseFragment.LOG_TAG, "userId "  + String.valueOf(userId));
+            Log.i(BaseFragment.LOG_TAG, "userImageUrl "  + userImageUrl);
+            Log.i(BaseFragment.LOG_TAG, "userBackgroundImageUrl "  + userBackgroundImageUrl);
             Log.i(BaseFragment.LOG_TAG, "username "  + username);
             Log.i(BaseFragment.LOG_TAG, "userHandle "  + userHandle);
 

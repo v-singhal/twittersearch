@@ -33,4 +33,44 @@
         <item name="android:windowExitAnimation">@anim/slide_down</item>
     </style>
     <!-- DIALOG BOX ANIMATION END -->
+
+    <!-- NORMAL PAGER SLIDING TAB START-->
+    <style name="PagerSlidingTabStrip">
+        <item name="android:elevation">3dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/bloated_view_pager_tab_height</item>
+        <item name="android:background">@color/otherCta</item>
+    </style>
+    <!-- NORMAL PAGER SLIDING TAB END-->
+
+    <!-- THIN PAGER SLIDING TAB START-->
+    <style name="PagerSlidingTabStripThin">
+        <item name="android:elevation">3dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/default_view_pager_tab_height</item>
+        <item name="android:background">@color/otherCta</item>
+    </style>
+    <!-- THIN PAGER SLIDING TAB END-->
+
+    <!--AUTO HORIZONTAL SCROLL TEXTVIEW-->
+    <style name="AutoHorizontalScrollTextView">
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:marqueeRepeatLimit">marquee_forever</item>
+        <item name="android:focusable">true</item>
+        <item name="android:focusableInTouchMode">true</item>
+        <item name="android:scrollHorizontally">true</item>
+        <item name="android:freezesText">true</item>
+        <item name="android:state_selected">true</item>
+    </style>
+
+    <!--SINGLE LINE TEXTVIEW-->
+    <style name="SingleLineTextView">
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:focusable">true</item>
+        <item name="android:focusableInTouchMode">true</item>
+    </style>
+
+
 </resources>
