@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Search it Twitter</string>
 
+    <string name="open_drawer">Open</string>
+    <string name="closed_drawer">Close</string>
+
     <string name="custom_font_path">fonts/Lato/regular.ttf</string>
     <string name="custom_font_path_italic">fonts/Lato/italic.ttf</string>
     <string name="custom_font_path_bold">fonts/Lato/bold.ttf</string>

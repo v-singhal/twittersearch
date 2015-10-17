@@ -11,7 +11,7 @@ import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.astuetz.PagerSlidingTabStrip;
 import com.vbstudio.twittersearch.R;
-import com.vbstudio.twittersearch.dialog.dom.EmbeddedFragmentData;
+import com.vbstudio.twittersearch.dom.EmbeddedFragmentData;
 import com.vbstudio.twittersearch.fragment.adapter.TwitterSearchPageAdapter;
 
 import org.json.JSONObject;

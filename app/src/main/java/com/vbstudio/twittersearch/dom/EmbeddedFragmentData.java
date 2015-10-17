@@ -1,4 +1,4 @@
-package com.vbstudio.twittersearch.dialog.dom;
+package com.vbstudio.twittersearch.dom;
 
 import com.vbstudio.twittersearch.fragment.BaseFragment;
 

@@ -14,12 +14,15 @@
     <color name="separatorMediumDark">#EEEEEE</color>
     <color name="separatorDark">#CCCCCC</color>
 
-    <color name="mainCta">#55ACEE</color>
     <color name="menuCta">#DB6A47</color>
     <color name="otherCta">#333333</color>
     <color name="lighterMenuCta">#E87754</color>
     <color name="darkerMenuCta">#DB5500</color>
-    <color name="thirdCta">#15A59E</color>
+
+    <color name="defaultTextColor">#333333</color>
+
+    <color name="primaryButtonCta">#DB6A47</color>
+    <color name="secondaryButtonCta">#333333</color>
 
     <color name="twitterColor">#55ACEE</color>
 

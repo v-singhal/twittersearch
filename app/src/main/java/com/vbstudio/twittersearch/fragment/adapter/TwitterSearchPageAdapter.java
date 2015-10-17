@@ -4,7 +4,7 @@ import android.content.Context;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.vbstudio.twittersearch.dialog.dom.EmbeddedFragmentData;
+import com.vbstudio.twittersearch.dom.EmbeddedFragmentData;
 import com.vbstudio.twittersearch.fragment.BaseFragment;
 
 import java.util.List;

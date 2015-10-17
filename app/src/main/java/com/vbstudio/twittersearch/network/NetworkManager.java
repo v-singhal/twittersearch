@@ -13,7 +13,7 @@ import com.android.volley.Response.Listener;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.vbstudio.twittersearch.Constants.ConstanKeys;
+import com.vbstudio.twittersearch.Constants.ConstantKeys;
 import com.vbstudio.twittersearch.fragment.BaseFragment;
 import com.vbstudio.twittersearch.preferences.SearchItPreferences;
 
@@ -35,10 +35,6 @@ public class NetworkManager implements RequestFilter {
 
     private static RequestQueue requestQueue;
     private static String BASE_URL;
-
-    public static String getBaseSnapdealUrl() {
-        return BASE_URL;
-    }
 
     private NetworkManager(Context context, String savedBaseUrl) {
         // TODO Auto-generated constructor stub
@@ -118,21 +114,27 @@ public class NetworkManager implements RequestFilter {
         return jsonRequest(request, identifier, shouldCache);
     }
 
-    public Request<?> jsonGetRequest(int identifier, String url,
-                                     Listener<String> listener,
-                                     ErrorListener errorListener, boolean shouldCache) {
-        StringRequest myReq = new StringRequest(
-                Request.Method.GET,
-                url,
-                listener,
-                errorListener);
-        addRequest(myReq);
+    public Request<?> jsonGetRequest(int identifier, String url, Listener<String> listener, ErrorListener errorListener, boolean shouldCache) {
+        StringRequest request = new StringRequest(Request.Method.GET, url, listener, errorListener);
 
-        return myReq;
+        Log.i(BaseFragment.LOG_TAG, "-------------------------");
+        try {
+            Log.i(BaseFragment.LOG_TAG, "REQUEST HEADERS: " + request.getHeaders().toString());
+            Log.i(BaseFragment.LOG_TAG, "REQUEST URL: " + request.getUrl().toString());
+            Log.i(BaseFragment.LOG_TAG, "REQUEST PARAMS: " + request.getBodyString());
+            Log.i(BaseFragment.LOG_TAG, "-------------------------");
+        } catch (AuthFailureError authFailureError) {
+            authFailureError.printStackTrace();
+        }
+
+        addRequest(request);
+
+        return request;
     }
 
     public void cancel() {
         requestQueue.cancelAll(this);
+        requestQueue.getCache().clear();
     }
 
     public boolean hasRunningRequests() {
@@ -142,7 +144,7 @@ public class NetworkManager implements RequestFilter {
     private Map<? extends String, ? extends String> getHeadersForRequest(Context context) {
         HashMap<String, String> oauthMap = new HashMap<>();
 
-        oauthMap.put("oauth_consumer_key", ConstanKeys.TWITTER_CONSUMER_KEY);
+        oauthMap.put("oauth_consumer_key", ConstantKeys.TWITTER_CONSUMER_KEY);
         oauthMap.put("oauth_nonce", "");
         oauthMap.put("oauth_signature", "");
         oauthMap.put("oauth_signature_method", "HMAC-SHA1");
@@ -156,7 +158,7 @@ public class NetworkManager implements RequestFilter {
     private String getTwitterOAuthString(Context context, String url) {
         String oauthString = "";
 
-        oauthString += "&" +"oauth_consumer_key=" + ConstanKeys.TWITTER_CONSUMER_KEY;
+        oauthString += "&" +"oauth_consumer_key=" + ConstantKeys.TWITTER_CONSUMER_KEY;
         oauthString += "&" +"oauth_nonce=" + generateNOnce();
         oauthString += "&" +"oauth_signature=" + generateSignature(context, url);
         oauthString += "&" +"oauth_signature_method=" + "HMAC-SHA1";
@@ -177,7 +179,7 @@ public class NetworkManager implements RequestFilter {
     }
 
     private String generateSignature(Context context, String signatueBaseStr) {
-        String oAuthConsumerSecret = ConstanKeys.TWITTER_CONSUMER_SECRET;
+        String oAuthConsumerSecret = ConstantKeys.TWITTER_CONSUMER_SECRET;
         String oAuthTokenSecret = SearchItPreferences.getTwitterTokenSecret(context);
         byte[] byteHMAC = null;
         try {

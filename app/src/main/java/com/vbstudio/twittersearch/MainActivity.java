@@ -10,7 +10,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -38,17 +38,15 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
-
+import static com.vbstudio.twittersearch.utils.KeyboardUtils.hideKeyboard;
 import static com.vbstudio.twittersearch.utils.StringUtils.extractValidString;
 import static com.vbstudio.twittersearch.utils.StringUtils.isValidString;
 import static com.vbstudio.twittersearch.utils.UIUtils.animateImageAddition;
-import static com.vbstudio.twittersearch.utils.UIUtils.hideKeyboard;
 
 
-public class MainActivity extends ActionBarActivity implements Drawer.OnDrawerListener, Drawer.OnDrawerItemClickListener {
+public class MainActivity extends BaseActivity implements Drawer.OnDrawerListener, Drawer.OnDrawerItemClickListener {
 
-    private Toolbar toolbar;
+    private ActionBarDrawerToggle drawerToggle;
     private Drawer materialDrawer;
     private Drawer.Result materialDrawerResult;
     private SharedPreferences sharedPreferences;
@@ -79,47 +77,32 @@ public class MainActivity extends ActionBarActivity implements Drawer.OnDrawerLi
 
     @Override
     protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+        super.attachBaseContext(newBase);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        String title = "";
-        BaseFragment fragment = (BaseFragment) getSupportFragmentManager().findFragmentById(R.id.container);
-        if (fragment != null) {
-            title = fragment.getTitle();
-        }
-        setTitle(title);
-
         return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
         return super.onOptionsItemSelected(item);
     }
 
     @Override
-    public void setTitle(CharSequence title) {
-        TextView titleView = (TextView) getSupportActionBar().getCustomView().findViewById(R.id.title);
-        titleView.setText(title);
+    public void onBackPressed() {
+
+        if (materialDrawerResult != null && materialDrawerResult.isDrawerOpen()) {
+            materialDrawerResult.closeDrawer();
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @Override
@@ -140,6 +123,12 @@ public class MainActivity extends ActionBarActivity implements Drawer.OnDrawerLi
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l, IDrawerItem iDrawerItem) {
         captureDrawerClicks(adapterView, view, i, l, iDrawerItem);
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        drawerToggle.syncState();
     }
 
 
@@ -198,16 +187,12 @@ public class MainActivity extends ActionBarActivity implements Drawer.OnDrawerLi
     }
 
     private void configureToolbar() {
-        toolbar = (Toolbar) findViewById(R.id.appToolbar);
-        setSupportActionBar(toolbar);
+        super.configureToolbar((Toolbar) findViewById(R.id.appToolbar));
 
-        getSupportActionBar().setDisplayShowTitleEnabled(true);
-        getSupportActionBar().setDisplayShowCustomEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        getSupportActionBar().setHomeButtonEnabled(false);
-
-        getSupportActionBar().setCustomView(R.layout.toolbar_view);
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open_drawer, R.string.closed_drawer);
     }
+
 
     private void initializeMaterialDrawer() {
         if (SearchItPreferences.getUserLoginState(this)) {
@@ -249,6 +234,7 @@ public class MainActivity extends ActionBarActivity implements Drawer.OnDrawerLi
             materialDrawer.withToolbar(toolbar);
             materialDrawer.withActionBarDrawerToggle(true);
             materialDrawer.withActionBarDrawerToggleAnimated(true);
+            materialDrawer.withActionBarDrawerToggle(drawerToggle);
             materialDrawer.withTranslucentStatusBar(false);
             materialDrawer = addProfileItemsToDrawer(materialDrawer);
             materialDrawer.withFireOnInitialOnClick(true);
@@ -327,7 +313,7 @@ public class MainActivity extends ActionBarActivity implements Drawer.OnDrawerLi
 
                 @Override
                 protected void onPostExecute(final Bitmap imageBitmap) {
-                    if(imageBitmap != null) {
+                    if (imageBitmap != null) {
                         addBitmapToView(activity, imageBitmap, imageView);
                     } else {
                         imageView.setVisibility(View.GONE);

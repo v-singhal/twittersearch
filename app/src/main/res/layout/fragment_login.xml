@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="SEARCH IT"
-                android:textColor="@color/otherCta"
+                android:textColor="@color/defaultTextColor"
                 android:textSize="30sp"
                 android:textStyle="bold"/>
 

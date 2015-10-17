@@ -2,7 +2,7 @@ package com.vbstudio.twittersearch.Twitter;
 
 import android.content.Context;
 
-import com.vbstudio.twittersearch.Constants.ConstanKeys;
+import com.vbstudio.twittersearch.Constants.ConstantKeys;
 import com.vbstudio.twittersearch.preferences.SearchItPreferences;
 
 import twitter4j.Twitter;
@@ -24,8 +24,8 @@ public class TwitterSingleton {
     public static Twitter getInstance(Context context) {
         if(twitter == null) {
             ConfigurationBuilder builder = new ConfigurationBuilder();
-            builder.setOAuthConsumerKey(ConstanKeys.TWITTER_CONSUMER_KEY);
-            builder.setOAuthConsumerSecret(ConstanKeys.TWITTER_CONSUMER_SECRET);
+            builder.setOAuthConsumerKey(ConstantKeys.TWITTER_CONSUMER_KEY);
+            builder.setOAuthConsumerSecret(ConstantKeys.TWITTER_CONSUMER_SECRET);
             builder.setOAuthAccessToken(SearchItPreferences.getTwitterToken(context));
             builder.setOAuthAccessTokenSecret(SearchItPreferences.getTwitterTokenSecret(context));
             Configuration configuration = builder.build();

@@ -14,14 +14,15 @@ public class SearchItPreferences {
     public static final String USERNAME = "username";
     public static final String USERHANDLE = "userHandle";
     public static final String OAUTH_TOKEN = "oauthToken";
+    public static final String IS_APP_IN_BACKGROUND = "isAppInBackground";
 
-	public static SharedPreferences getPreferences(Context context) {
-		return context.getSharedPreferences("orobindPreferences", Context.MODE_PRIVATE);
-	}
-	
-	public static void clearAll(Context context) {
-		getPreferences(context).edit().clear().commit();
-	}
+    public static SharedPreferences getPreferences(Context context) {
+        return context.getSharedPreferences("orobindPreferences", Context.MODE_PRIVATE);
+    }
+
+    public static void clearAll(Context context) {
+        getPreferences(context).edit().clear().commit();
+    }
 
     public static Boolean getUserLoginState(Context context) {
         SharedPreferences sharedPreferences = getPreferences(context);
@@ -120,5 +121,15 @@ public class SearchItPreferences {
         SharedPreferences sharedPreferences = getPreferences(context);
         sharedPreferences.edit().putString(OAUTH_TOKEN, username).commit();
 
+    }
+
+    public static Boolean getAppBackgroundPauseState(Context context) {
+        SharedPreferences sharedPreferences = getPreferences(context);
+        return sharedPreferences.getBoolean(IS_APP_IN_BACKGROUND, false);
+    }
+
+    public static void saveAppBackgroundPauseState(Context context, Boolean isMainPaused) {
+        SharedPreferences sharedPreferences = getPreferences(context);
+        sharedPreferences.edit().putBoolean(IS_APP_IN_BACKGROUND, isMainPaused).commit();
     }
 }

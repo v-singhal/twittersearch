@@ -13,7 +13,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -28,11 +28,15 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.astuetz.PagerSlidingTabStrip;
+import com.vbstudio.twittersearch.BaseActivity;
+import com.vbstudio.twittersearch.MainActivity;
 import com.vbstudio.twittersearch.R;
+import com.vbstudio.twittersearch.TwitterLoginActivity;
 import com.vbstudio.twittersearch.network.AnimatedNetworkImageView;
 import com.vbstudio.twittersearch.network.ImageRequestManager;
 import com.vbstudio.twittersearch.network.NetworkManager;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -41,11 +45,11 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.UnknownHostException;
 
+import static com.vbstudio.twittersearch.utils.KeyboardUtils.hideKeyboard;
 import static com.vbstudio.twittersearch.utils.StringUtils.isValidString;
 import static com.vbstudio.twittersearch.utils.UIUtils.animateFadeHide;
 import static com.vbstudio.twittersearch.utils.UIUtils.animateFadeShow;
 import static com.vbstudio.twittersearch.utils.UIUtils.animateImageAddition;
-import static com.vbstudio.twittersearch.utils.UIUtils.hideKeyboard;
 
 public class BaseFragment extends DialogFragment implements Response.Listener<JSONObject>, Response.ErrorListener, View.OnClickListener {
 
@@ -102,7 +106,7 @@ public class BaseFragment extends DialogFragment implements Response.Listener<JS
 
         getActivity().invalidateOptionsMenu();
 
-        ((ActionBarActivity) getActivity()).getSupportActionBar().show();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
     }
 
     @Override
@@ -163,6 +167,35 @@ public class BaseFragment extends DialogFragment implements Response.Listener<JS
         }
     }
 
+    public JSONObject processServerGETResponse(Request<String> request, String response) {
+        hideLoadingIndicator();
+        Log.e(BaseFragment.LOG_TAG, "RESPONSE on: " + request.getIdentifier());
+        Log.e(BaseFragment.LOG_TAG, "RESPONSE: " + response.toString());
+
+        JSONObject responseInJSON = new JSONObject();
+        try {
+            responseInJSON = new JSONObject(response);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            responseInJSON = validateStringResponse(response);
+        }
+        Log.i(BaseFragment.LOG_TAG, "RESPONSE AS JSON: " + responseInJSON.toString());
+
+        return responseInJSON;
+    }
+
+    private JSONObject validateStringResponse(String response) {
+        JSONObject responseInJSON = new JSONObject();
+
+        try {
+            responseInJSON = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return responseInJSON;
+    }
+
     public void showLoadingIndicator() {
         if (getActivity() != null) {
             getActivity().runOnUiThread(new Runnable() {
@@ -175,7 +208,7 @@ public class BaseFragment extends DialogFragment implements Response.Listener<JS
     }
 
     public static void addToBackStack(Context context, BaseFragment fragment) {
-        FragmentManager fragmentManager = ((ActionBarActivity) context).getSupportFragmentManager();
+        FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
 
         Log.i(BaseFragment.LOG_TAG, "FM SIZE IN ADD BEFORE: " + fragmentManager.getBackStackEntryCount());
 
@@ -188,7 +221,7 @@ public class BaseFragment extends DialogFragment implements Response.Listener<JS
     }
 
     public static void replaceStack(Context context, BaseFragment fragment) {
-        FragmentManager fragmentManager = ((ActionBarActivity) context).getSupportFragmentManager();
+        FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
         if (fragmentManager.getBackStackEntryCount() > 0) {
             fragmentManager.popBackStack(fragmentManager.getBackStackEntryAt(0).getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
@@ -205,7 +238,7 @@ public class BaseFragment extends DialogFragment implements Response.Listener<JS
 
     protected void hideToolbar() {
         if (getActivity() != null) {
-            ((ActionBarActivity) getActivity()).getSupportActionBar().hide();
+            ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         }
     }
 
@@ -246,7 +279,7 @@ public class BaseFragment extends DialogFragment implements Response.Listener<JS
 
                 @Override
                 protected void onPostExecute(final Bitmap imageBitmap) {
-                    if(imageBitmap != null) {
+                    if (imageBitmap != null) {
                         addBitmapToView(activity, imageBitmap, imageView);
                     } else {
                         imageView.setVisibility(View.GONE);
@@ -287,7 +320,7 @@ public class BaseFragment extends DialogFragment implements Response.Listener<JS
         slidingTabs.setIndicatorColorResource(R.color.menuCta);
         slidingTabs.setIndicatorHeight(slidingTabs.getIndicatorHeight());
         slidingTabs.setUnderlineHeight(0);
-        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
             slidingTabs.setUnderlineHeight(0);
         }
 
@@ -302,13 +335,39 @@ public class BaseFragment extends DialogFragment implements Response.Listener<JS
         slidingTabs.setIndicatorColorResource(R.color.menuCta);
         slidingTabs.setIndicatorHeight(slidingTabs.getIndicatorHeight());
         slidingTabs.setUnderlineHeight(0);
-        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
             slidingTabs.setUnderlineHeight(0);
         }
 
         slidingTabs.setViewPager(viewPager);
 
         return slidingTabs;
+    }
+
+    public NetworkManager setNetworkManager(String url) {
+        NetworkManager networkManager = NetworkManager.newInstance(getActivity(), url);
+        return networkManager;
+    }
+
+    public static BaseFragment getFragmentFromCurrentActivity(Context context) {
+        BaseFragment currentFragment;
+        int containerId = getContainerIdForCurrentActivity(context);
+
+        currentFragment = (BaseFragment) ((AppCompatActivity) context).getSupportFragmentManager().findFragmentById(containerId);
+
+        return currentFragment;
+    }
+
+    public static int getContainerIdForCurrentActivity(Context context) {
+        int containerId = BaseActivity.MAIN_ACTIVITY_CONTAINER_ID;
+
+        if (context instanceof MainActivity) {
+            containerId = BaseActivity.MAIN_ACTIVITY_CONTAINER_ID;
+        } else if (context instanceof TwitterLoginActivity) {
+            containerId = BaseActivity.TWITTER_LOGIN_ACTIVITY_CONTAINER_ID;
+        }
+
+        return containerId;
     }
 
     /**
@@ -322,7 +381,6 @@ public class BaseFragment extends DialogFragment implements Response.Listener<JS
     public String getTitle() {
         return title;
     }
-
 
     public NetworkManager getNetworkManager() {
         return networkManager;

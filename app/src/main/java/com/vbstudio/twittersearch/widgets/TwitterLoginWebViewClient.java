@@ -1,5 +1,6 @@
 package com.vbstudio.twittersearch.widgets;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -9,9 +10,11 @@ import android.util.Log;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.vbstudio.twittersearch.Constants.ConstanKeys;
+import com.vbstudio.twittersearch.Constants.ConstantKeys;
 import com.vbstudio.twittersearch.R;
 import com.vbstudio.twittersearch.TwitterLoginActivity;
+import com.vbstudio.twittersearch.dialog.GenericNoTitleDialog;
+import com.vbstudio.twittersearch.dom.GenericDialogData;
 import com.vbstudio.twittersearch.fragment.BaseFragment;
 
 import static com.vbstudio.twittersearch.utils.UIUtils.animateFadeHide;
@@ -38,17 +41,25 @@ public class TwitterLoginWebViewClient extends WebViewClient {
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
 
-        if (url.contains(ConstanKeys.TWITTER_CALLBACK_URL)) {
+        if (url.contains(ConstantKeys.TWITTER_CALLBACK_URL)) {
             Uri uri = Uri.parse(url);
 
 				/* Sending results back */
-            String verifier = uri.getQueryParameter(ConstanKeys.URL_TWITTER_OAUTH_VERIFIER);
+            String verifier = uri.getQueryParameter(ConstantKeys.URL_TWITTER_OAUTH_VERIFIER);
             Intent resultIntent = new Intent();
-            resultIntent.putExtra(ConstanKeys.URL_TWITTER_OAUTH_VERIFIER, verifier);
+            resultIntent.putExtra(ConstantKeys.URL_TWITTER_OAUTH_VERIFIER, verifier);
             ((TwitterLoginActivity) context).setResult(((TwitterLoginActivity) context).RESULT_OK, resultIntent);
 
 				/* closing webview */
             ((TwitterLoginActivity) context).finish();
+            return true;
+        } else if (url.contains(ConstantKeys.URL_TWITTER_OATH_FAIL)) {
+            GenericDialogData dialogData = new GenericDialogData();
+
+            dialogData.setMessage("The user credentials entered were incorrect. Please try again.");
+            Dialog dialog = new GenericNoTitleDialog(context, dialogData);
+            BaseFragment.openAniamtedDialog(dialog);
+            ((TwitterLoginActivity) context).relaunchActivity(context);
             return true;
         }
         return false;
@@ -61,17 +72,6 @@ public class TwitterLoginWebViewClient extends WebViewClient {
 
         Log.i(BaseFragment.LOG_TAG, "PAGE URL: " + url);
         Log.i(BaseFragment.LOG_TAG, "PAGE TITLE: " + view.getTitle());
-
-        /*if (url.contains(ConstanKeys.TWITTER_CALLBACK_URL)) {
-            Uri uri = Uri.parse(url);
-
-            String verifier = uri.getQueryParameter(ConstanKeys.URL_TWITTER_OAUTH_VERIFIER);
-            Intent resultIntent = new Intent();
-            resultIntent.putExtra(ConstanKeys.URL_TWITTER_OAUTH_VERIFIER, verifier);
-            ((TwitterLoginActivity) context).setResult(((TwitterLoginActivity) context).RESULT_OK, resultIntent);
-
-            ((TwitterLoginActivity) context).finish();
-        }*/
     }
 
     @Override

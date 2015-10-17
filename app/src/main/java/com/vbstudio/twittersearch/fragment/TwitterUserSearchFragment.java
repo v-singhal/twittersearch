@@ -25,9 +25,9 @@ import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.User;
 
+import static com.vbstudio.twittersearch.utils.KeyboardUtils.hideKeyboard;
 import static com.vbstudio.twittersearch.utils.StringUtils.extractValidString;
 import static com.vbstudio.twittersearch.utils.StringUtils.isValidString;
-import static com.vbstudio.twittersearch.utils.UIUtils.hideKeyboard;
 
 /**
  * Created by vaibhav on 23/8/15.

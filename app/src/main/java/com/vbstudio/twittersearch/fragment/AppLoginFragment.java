@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 import com.android.volley.Request;
 import com.android.volley.VolleyError;
-import com.vbstudio.twittersearch.Constants.ConstanKeys;
+import com.vbstudio.twittersearch.Constants.ConstantKeys;
 import com.vbstudio.twittersearch.R;
 import com.vbstudio.twittersearch.TwitterLoginActivity;
 import com.vbstudio.twittersearch.preferences.SearchItPreferences;
@@ -158,15 +158,15 @@ public class AppLoginFragment extends BaseFragment {
     private void getTwitterOthToken() {
 
         ConfigurationBuilder builder = new ConfigurationBuilder();
-        builder.setOAuthConsumerKey(ConstanKeys.TWITTER_CONSUMER_KEY);
-        builder.setOAuthConsumerSecret(ConstanKeys.TWITTER_CONSUMER_SECRET);
+        builder.setOAuthConsumerKey(ConstantKeys.TWITTER_CONSUMER_KEY);
+        builder.setOAuthConsumerSecret(ConstantKeys.TWITTER_CONSUMER_SECRET);
         Configuration configuration = builder.build();
 
         TwitterFactory factory = new TwitterFactory(configuration);
         twitter = factory.getInstance();
 
         try {
-            requestToken = twitter.getOAuthRequestToken(ConstanKeys.TWITTER_CALLBACK_URL);
+            requestToken = twitter.getOAuthRequestToken(ConstantKeys.TWITTER_CALLBACK_URL);
             final Intent intent = new Intent(getActivity(), TwitterLoginActivity.class);
             intent.putExtra(TwitterLoginActivity.EXTRA_URL, requestToken.getAuthenticationURL());
             startActivityForResult(intent, 101);
@@ -178,7 +178,7 @@ public class AppLoginFragment extends BaseFragment {
     }
 
     private void finalizeLogin(Intent data) {
-        String verifier = data.getExtras().getString(ConstanKeys.URL_TWITTER_OAUTH_VERIFIER);
+        String verifier = data.getExtras().getString(ConstantKeys.URL_TWITTER_OAUTH_VERIFIER);
         try {
             AccessToken accessToken = twitter.getOAuthAccessToken(requestToken, verifier);
 

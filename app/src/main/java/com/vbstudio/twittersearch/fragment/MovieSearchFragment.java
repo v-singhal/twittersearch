@@ -7,7 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.volley.Request;
+import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.vbstudio.twittersearch.Constants.ConstantKeys;
 import com.vbstudio.twittersearch.R;
 
 import org.json.JSONObject;
@@ -53,6 +55,8 @@ public class MovieSearchFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
+
+        searchForMovie();
     }
 
     @Override
@@ -63,7 +67,6 @@ public class MovieSearchFragment extends BaseFragment {
     @Override
     public void onPause() {
         super.onPause();
-        getNetworkManager().cancel();
     }
 
     @Override
@@ -87,7 +90,29 @@ public class MovieSearchFragment extends BaseFragment {
         }
     }
 
+    @Override
+    public JSONObject processServerGETResponse(Request<String> request, String response) {
+        return super.processServerGETResponse(request, response);
+    }
+
     private void setupView(View view) {
+
+    }
+
+    private void searchForMovie() {
+        showLoadingIndicator();
+
+        String strGetMovieAutoSuggest = "http://sg.media-imdb.com/suggests/f/foo.json";
+
+        setNetworkManager(strGetMovieAutoSuggest).jsonGetRequest(ConstantKeys.MOVIE_AUTO_SUGGEST, strGetMovieAutoSuggest, new Response.Listener<String>() {
+            @Override
+            public void onResponse(Request<String> request, String response) {
+                processSuggestions(processServerGETResponse(request, response));
+            }
+        }, this, false);
+    }
+
+    private void processSuggestions(JSONObject jsonObject) {
 
     }
 }

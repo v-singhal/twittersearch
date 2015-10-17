@@ -1,16 +1,13 @@
 package com.vbstudio.twittersearch.dialog;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 
 import com.vbstudio.twittersearch.MainActivity;
 import com.vbstudio.twittersearch.R;
 
-public class LogoutConfirmationDialog extends Dialog implements View.OnClickListener {
+public class LogoutConfirmationDialog extends BaseDialog {
 
     private Context context;
 
@@ -23,7 +20,6 @@ public class LogoutConfirmationDialog extends Dialog implements View.OnClickList
     public void show() {
         setupView();
         super.show();
-        getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
     }
 
     @Override
@@ -31,15 +27,16 @@ public class LogoutConfirmationDialog extends Dialog implements View.OnClickList
         int id = v.getId();
         if (id == R.id.btnLogMeOut) {
             ((MainActivity) context).performActionLogout();
-        }
-        else if (id == R.id.btnDismissDialog) {
+        } else if (id == R.id.btnDismissDialog) {
 
         }
         dismiss();
     }
 
-    private void setupView() {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+    @Override
+    protected void setupView() {
+        super.setupView();
+
         setContentView(R.layout.dialog_logout_confirmation);
 
         Button btnDismissDialog = (Button) findViewById(R.id.btnDismissDialog);

@@ -3,41 +3,36 @@ package com.vbstudio.twittersearch;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.vbstudio.twittersearch.fragment.BaseFragment;
 import com.vbstudio.twittersearch.fragment.TwitterWebLoginFragment;
-
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static com.vbstudio.twittersearch.utils.StringUtils.isValidString;
 
-public class TwitterLoginActivity extends ActionBarActivity {
+public class TwitterLoginActivity extends BaseActivity {
 
-    private Toolbar toolbar;
-    private int containerId = R.id.webViewContainer;
+    private static Intent launchIntent;
     public static String EXTRA_URL = "extra_url";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_web_view);
+        setContentView(R.layout.activity_twitter_login_activity);
 
         configureToolbar();
-        Intent intentForPayment = getIntent();
+        Intent intentForLogin = getIntent();
 
-        if (intentForPayment != null) {
+        if (intentForLogin != null) {
             /****Passage of intent content****/
-            if (intentForPayment.getExtras() != null) {
-                String url = intentForPayment.getExtras().getString(TwitterLoginActivity.EXTRA_URL);
-                if(isValidString(url)) {
+            if (intentForLogin.getExtras() != null) {
+                String url = intentForLogin.getExtras().getString(TwitterLoginActivity.EXTRA_URL);
+                if (isValidString(url)) {
+                    launchIntent = intentForLogin;
                     openTwitterLoginFragment(url);
                 } else {
                     Toast.makeText(this, "Login url is malformed", Toast.LENGTH_LONG).show();
@@ -50,7 +45,7 @@ public class TwitterLoginActivity extends ActionBarActivity {
 
     @Override
     protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+        super.attachBaseContext(newBase);
     }
 
     @Override
@@ -85,52 +80,34 @@ public class TwitterLoginActivity extends ActionBarActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu items for use in the action bar
-        //MenuInflater inflater = getMenuInflater();
-        //inflater.inflate(R.menu.main, menu);
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        String title = "";
-        BaseFragment fragment = (BaseFragment) getSupportFragmentManager().findFragmentById(containerId);
-        if (fragment != null) {
-            title = fragment.getTitle();
-        }
-        setTitle(title);
         return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        BaseFragment fragment = (BaseFragment) getSupportFragmentManager().findFragmentById(containerId);
-        return true;
-    }
-
-    @Override
-    public void setTitle(CharSequence title) {
-        TextView titleView = (TextView) getSupportActionBar().getCustomView().findViewById(R.id.title);
-        titleView.setText(title);
+        return super.onOptionsItemSelected(item);
     }
 
     private void configureToolbar() {
-        toolbar = (Toolbar) findViewById(R.id.appToolbar);
-        setSupportActionBar(toolbar);
-
-        getSupportActionBar().setDisplayShowTitleEnabled(true);
-        getSupportActionBar().setDisplayShowCustomEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        getSupportActionBar().setHomeButtonEnabled(false);
-
-        getSupportActionBar().setCustomView(R.layout.toolbar_view);
+        super.configureToolbar((Toolbar) findViewById(R.id.appToolbar));
     }
+
 
     private void openTwitterLoginFragment(String url) {
         Bundle bundle = new Bundle();
         bundle.putString("url", url);
 
         TwitterWebLoginFragment twitterLoginFragment = (TwitterWebLoginFragment) TwitterWebLoginFragment.newInstance(bundle);
-        getSupportFragmentManager().beginTransaction().replace(containerId, twitterLoginFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(BaseActivity.TWITTER_LOGIN_ACTIVITY_CONTAINER_ID, twitterLoginFragment).commit();
     }
+
+    public static void relaunchActivity(Context context) {
+        context.startActivity(launchIntent);
+    }
+
 }

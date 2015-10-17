@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:hint="Search result"
         android:padding="10dp"
-        android:textColor="@color/otherCta"/>
+        android:textColor="@color/defaultTextColor"/>
 
     <com.vbstudio.twittersearch.network.AnimatedNetworkImageView
         android:id="@+id/imgTweetImage"

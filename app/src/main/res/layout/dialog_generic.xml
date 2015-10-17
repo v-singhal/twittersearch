@@ -6,22 +6,20 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/dialogHeaderLayout"
+        android:id="@+id/dialogServerHeaderLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:background="@color/white"
-        android:visibility="gone">
+        android:background="@color/white">
 
         <TextView
-            android:id="@+id/txtDialogHeader"
+            android:id="@+id/txtDialogServerHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
             android:gravity="center"
             android:padding="10dp"
-            android:text="Logout confirmation"
             android:textColor="@color/defaultTextColor"
             android:textSize="17sp"/>
     </LinearLayout>
@@ -30,24 +28,24 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/separatorDark"
-        android:visibility="gone"/>
+        android:background="@color/separatorDark"/>
 
     <LinearLayout
-        android:id="@+id/dialogBodyLayout"
+        android:id="@+id/dialogServerBodyLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:padding="10dp">
 
         <TextView
+            android:id="@+id/txtServerMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
             android:layout_marginTop="15dp"
-            android:gravity="center"
-            android:text="Are you sure you want to logout?"
-            android:textColor="@color/defaultTextColor"/>
+            android:hint="-"
+            android:textColor="@color/defaultTextColor"
+            android:textIsSelectable="true"/>
 
     </LinearLayout>
 
@@ -62,19 +60,11 @@
 
         <Button
             android:id="@+id/btnDismissDialog"
-            style="@style/SecondaryRoundedButton"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="50"
-            android:text="No, stay logged in"/>
-
-        <Button
-            android:id="@+id/btnLogMeOut"
             style="@style/PrimaryRoundedButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="50"
-            android:text="Yes, log me out"/>
+            android:layout_weight="100"
+            android:text="OK"/>
     </LinearLayout>
 
 </LinearLayout>
