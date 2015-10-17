@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Search it Twitter</string>
+    <string name="app_name">Search it</string>
 
     <string name="open_drawer">Open</string>
     <string name="closed_drawer">Close</string>

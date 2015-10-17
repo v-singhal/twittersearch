@@ -5,12 +5,24 @@ package com.vbstudio.twittersearch.dom.MovieResponse;
  */
 public class MovieBasicData {
 
+    private static final String MOVIE_CODE = "feature";
+    private static final String TV_SHOW_CODE = "TV series";
+
     private String movieResponseBasicId;
     private String movieResponseBasicName;
     private String movieResponseBasicCast;
     private String movieResponseBasicType;
     private String movieResponseBasicYear;
     private MovieBasicResponseImageData movieBasicResponseImageData;
+
+    public static String convertMovieCodeToString(String movieResponseBasicType) {
+        if(MOVIE_CODE.toUpperCase().equals(movieResponseBasicType.toUpperCase())) {
+            movieResponseBasicType = "Movie";
+        } else if(TV_SHOW_CODE.toUpperCase().equals(movieResponseBasicType.toUpperCase())) {
+            movieResponseBasicType = "TV Show";
+        }
+        return movieResponseBasicType;
+    }
 
     public String getMovieResponseBasicId() {
         return movieResponseBasicId;
@@ -41,7 +53,7 @@ public class MovieBasicData {
     }
 
     public void setMovieResponseBasicType(String movieResponseBasicType) {
-        this.movieResponseBasicType = movieResponseBasicType;
+        this.movieResponseBasicType = convertMovieCodeToString(movieResponseBasicType);
     }
 
     public String getMovieResponseBasicYear() {

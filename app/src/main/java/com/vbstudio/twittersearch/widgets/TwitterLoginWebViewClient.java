@@ -59,7 +59,8 @@ public class TwitterLoginWebViewClient extends WebViewClient {
             dialogData.setMessage("The user credentials entered were incorrect. Please try again.");
             Dialog dialog = new GenericNoTitleDialog(context, dialogData);
             BaseFragment.openAniamtedDialog(dialog);
-            ((TwitterLoginActivity) context).relaunchActivity(context);
+
+            ((TwitterLoginActivity) context).reloadLoginFragment(context);
             return true;
         }
         return false;

@@ -27,19 +27,7 @@ public class TwitterLoginActivity extends BaseActivity {
         configureToolbar();
         Intent intentForLogin = getIntent();
 
-        if (intentForLogin != null) {
-            /****Passage of intent content****/
-            if (intentForLogin.getExtras() != null) {
-                String url = intentForLogin.getExtras().getString(TwitterLoginActivity.EXTRA_URL);
-                if (isValidString(url)) {
-                    launchIntent = intentForLogin;
-                    openTwitterLoginFragment(url);
-                } else {
-                    Toast.makeText(this, "Login url is malformed", Toast.LENGTH_LONG).show();
-                    this.finish();
-                }
-            }
-        }
+        verifyIntentForLoginUrl(intentForLogin);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
     }
 
@@ -97,6 +85,21 @@ public class TwitterLoginActivity extends BaseActivity {
         super.configureToolbar((Toolbar) findViewById(R.id.appToolbar));
     }
 
+    private void verifyIntentForLoginUrl(Intent intentForLogin) {
+        if (intentForLogin != null) {
+            /****Passage of intent content****/
+            if (intentForLogin.getExtras() != null) {
+                String url = intentForLogin.getExtras().getString(TwitterLoginActivity.EXTRA_URL);
+                if (isValidString(url)) {
+                    launchIntent = intentForLogin;
+                    openTwitterLoginFragment(url);
+                } else {
+                    Toast.makeText(this, "Login url is malformed", Toast.LENGTH_LONG).show();
+                    this.finish();
+                }
+            }
+        }
+    }
 
     private void openTwitterLoginFragment(String url) {
         Bundle bundle = new Bundle();
@@ -110,4 +113,7 @@ public class TwitterLoginActivity extends BaseActivity {
         context.startActivity(launchIntent);
     }
 
+    public void reloadLoginFragment(Context context) {
+        verifyIntentForLoginUrl(launchIntent);
+    }
 }

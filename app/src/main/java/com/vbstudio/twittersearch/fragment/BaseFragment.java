@@ -176,7 +176,7 @@ public class BaseFragment extends DialogFragment implements Response.Listener<JS
         try {
             responseInJSON = new JSONObject(response);
         } catch (JSONException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             responseInJSON = validateStringResponse(response);
         }
         Log.i(BaseFragment.LOG_TAG, "RESPONSE AS JSON: " + responseInJSON.toString());
@@ -346,6 +346,7 @@ public class BaseFragment extends DialogFragment implements Response.Listener<JS
 
     public NetworkManager setNetworkManager(String url) {
         NetworkManager networkManager = NetworkManager.newInstance(getActivity(), url);
+        this.networkManager = networkManager;
         return networkManager;
     }
 
@@ -368,6 +369,16 @@ public class BaseFragment extends DialogFragment implements Response.Listener<JS
         }
 
         return containerId;
+    }
+
+    protected void cancelAsyncTask(AsyncTask asyncTask) {
+        if (asyncTask != null && asyncTask.getStatus() == AsyncTask.Status.RUNNING) {
+            String asyncTaskLog = asyncTask.getClass().getSimpleName();
+
+            asyncTaskLog += " is being cancelled";
+            Log.e(BaseFragment.LOG_TAG, asyncTaskLog);
+            asyncTask.cancel(true);
+        }
     }
 
     /**

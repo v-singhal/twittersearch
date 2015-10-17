@@ -88,12 +88,11 @@ public class AppLoginFragment extends BaseFragment {
     public void onActivityResult(int requestCode, int resultCode, final Intent data) {
 
         if (resultCode == Activity.RESULT_OK) {
-
+            showLoadingIndicator();
             new AsyncTask<Void, Void, Void>() {
 
                 @Override
                 protected Void doInBackground(Void... voids) {
-
                     finalizeLogin(data);
 
                     return null;
@@ -170,6 +169,7 @@ public class AppLoginFragment extends BaseFragment {
             final Intent intent = new Intent(getActivity(), TwitterLoginActivity.class);
             intent.putExtra(TwitterLoginActivity.EXTRA_URL, requestToken.getAuthenticationURL());
             startActivityForResult(intent, 101);
+            hideLoadingIndicator();
 
         } catch (TwitterException e) {
             hideLoadingIndicator();

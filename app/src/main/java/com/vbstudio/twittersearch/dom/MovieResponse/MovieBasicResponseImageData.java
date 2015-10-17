@@ -18,9 +18,11 @@ public class MovieBasicResponseImageData {
         MovieBasicResponseImageData basicResponseImageData = new MovieBasicResponseImageData();
         JSONArray imageDataFromServer = response.optJSONArray(ConstantKeys.MOVIE_RESPONSE_BASIC_IMAGE_DETAILS);
 
-        basicResponseImageData.setImageUrl(imageDataFromServer.optString(0));
-        basicResponseImageData.setWidth(imageDataFromServer.optInt(1));
-        basicResponseImageData.setHeight(imageDataFromServer.optInt(2));
+        if (imageDataFromServer != null) {
+            basicResponseImageData.setImageUrl(imageDataFromServer.optString(0));
+            basicResponseImageData.setWidth(imageDataFromServer.optInt(1));
+            basicResponseImageData.setHeight(imageDataFromServer.optInt(2));
+        }
         return basicResponseImageData;
     }
 
